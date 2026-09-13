@@ -1,0 +1,1155 @@
+{
+  "agent": "gemini",
+  "displayName": "Gemini CLI",
+  "vendor": "Google",
+  "packVersion": "2026.09.14",
+  "sources": [
+    "https://geminicli.com/docs/reference/configuration/",
+    "https://geminicli.com/docs/cli/settings/",
+    "https://geminicli.com/docs/tools/mcp-server/",
+    "https://geminicli.com/docs/cli/enterprise/"
+  ],
+  "keys": [
+    {
+      "key": "general.vimMode",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Interface",
+      "summary": "Enable Vim keybindings in the CLI input.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#general",
+      "concept": "editor.vim"
+    },
+    {
+      "key": "general.defaultApprovalMode",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": ["default", "auto_edit", "plan"],
+      "default": "default",
+      "scopes": ["user", "project"],
+      "category": "Permissions",
+      "summary": "Default approval mode for tool execution: prompt, auto-approve edits, or read-only plan mode.",
+      "detail": "YOLO mode, which auto-approves every action, cannot be set here and is only available via the --yolo flag or --approval-mode=yolo.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#general",
+      "concept": "permissions.mode"
+    },
+    {
+      "key": "general.enableAutoUpdate",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project"],
+      "category": "Updates",
+      "summary": "Enable automatic updates of Gemini CLI.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#general",
+      "concept": "updates"
+    },
+    {
+      "key": "general.enableNotifications",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Notifications",
+      "summary": "Send terminal notifications when a session needs input or completes.",
+      "detail": "Experimental. Uses the OSC 9 terminal escape sequence, falling back to a terminal bell (BEL) on unsupported terminals.",
+      "docsUrl": "https://geminicli.com/docs/cli/notifications/",
+      "flags": ["experimental"],
+      "concept": "notifications"
+    },
+    {
+      "key": "general.notificationMethod",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": ["auto", "osc9", "osc777", "bell"],
+      "default": "auto",
+      "scopes": ["user", "project"],
+      "category": "Notifications",
+      "summary": "How to deliver terminal run-event notifications.",
+      "docsUrl": "https://geminicli.com/docs/cli/notifications/",
+      "flags": ["experimental"],
+      "concept": "notifications"
+    },
+    {
+      "key": "general.checkpointing.enabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Git",
+      "summary": "Save a shadow git snapshot and conversation state before file-modifying tool calls.",
+      "detail": "Snapshots live under ~/.gemini/history/<project_hash> and are separate from the project's own git repository. Restore with /restore.",
+      "docsUrl": "https://geminicli.com/docs/cli/checkpointing/",
+      "concept": "history"
+    },
+    {
+      "key": "general.plan.enabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project"],
+      "category": "Agents & sessions",
+      "summary": "Enable Plan Mode, a read-only planning phase before tool execution.",
+      "docsUrl": "https://geminicli.com/docs/cli/plan-mode/"
+    },
+    {
+      "key": "general.sessionRetention.enabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project"],
+      "category": "Agents & sessions",
+      "summary": "Automatically clean up old saved chat sessions.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#general",
+      "concept": "history"
+    },
+    {
+      "key": "general.sessionRetention.maxAge",
+      "file": "settings.json",
+      "type": "string",
+      "default": "30d",
+      "scopes": ["user", "project"],
+      "category": "Agents & sessions",
+      "summary": "Delete saved chats older than this period, for example 30d, 7d, 24h.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#general",
+      "concept": "history"
+    },
+    {
+      "key": "general.maxAttempts",
+      "file": "settings.json",
+      "type": "number",
+      "default": 10,
+      "scopes": ["user", "project"],
+      "category": "Model",
+      "summary": "Maximum retry attempts for requests to the main chat model. Cannot exceed 10.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#general"
+    },
+    {
+      "key": "output.format",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": ["text", "json"],
+      "default": "text",
+      "scopes": ["user", "project"],
+      "category": "Interface",
+      "summary": "Output format for non-interactive CLI output.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#output"
+    },
+    {
+      "key": "ui.theme",
+      "file": "settings.json",
+      "type": "string",
+      "default": null,
+      "scopes": ["user", "project"],
+      "category": "Interface",
+      "summary": "Color theme name or file path for the CLI UI.",
+      "detail": "Remove this setting before switching themes with the /theme command, since a value set here takes precedence.",
+      "docsUrl": "https://geminicli.com/docs/cli/themes/",
+      "concept": "theme"
+    },
+    {
+      "key": "ui.customThemes",
+      "file": "settings.json",
+      "type": "object",
+      "default": {},
+      "scopes": ["user", "project"],
+      "category": "Interface",
+      "summary": "Custom color theme definitions, keyed by theme name.",
+      "docsUrl": "https://geminicli.com/docs/cli/themes/",
+      "concept": "theme"
+    },
+    {
+      "key": "ui.autoThemeSwitching",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project"],
+      "category": "Interface",
+      "summary": "Switch automatically between light and dark theme based on the terminal background color.",
+      "docsUrl": "https://geminicli.com/docs/cli/themes/"
+    },
+    {
+      "key": "ui.hideBanner",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Interface",
+      "summary": "Hide the application banner on startup.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#ui"
+    },
+    {
+      "key": "ui.hideFooter",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Interface",
+      "summary": "Hide the status footer from the UI.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#ui"
+    },
+    {
+      "key": "ui.hideContextSummary",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Interface",
+      "summary": "Hide the GEMINI.md and MCP server summary shown above the input box.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#ui"
+    },
+    {
+      "key": "ui.showUserIdentity",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project"],
+      "category": "Interface",
+      "summary": "Show the signed-in user's identity, such as their email, in the UI.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#ui"
+    },
+    {
+      "key": "ui.accessibility.screenReader",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Interface",
+      "summary": "Render output in plain text for better screen reader compatibility.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#ui"
+    },
+    {
+      "key": "ui.accessibility.enableLoadingPhrases",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project"],
+      "category": "Interface",
+      "summary": "Enable loading phrases during operations.",
+      "detail": "Deprecated in favor of ui.loadingPhrases.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#ui",
+      "flags": ["deprecated"]
+    },
+    {
+      "key": "ide.enabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Other",
+      "summary": "Enable IDE integration mode.",
+      "docsUrl": "https://geminicli.com/docs/ide-integration/"
+    },
+    {
+      "key": "billing.overageStrategy",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": ["ask", "always", "never"],
+      "default": "ask",
+      "scopes": ["user", "project"],
+      "category": "Other",
+      "summary": "How to handle quota exhaustion when paid AI credits are available.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#billing"
+    },
+    {
+      "key": "model.name",
+      "file": "settings.json",
+      "type": "string",
+      "default": null,
+      "scopes": ["user", "project"],
+      "category": "Model",
+      "summary": "The Gemini model to use for conversations.",
+      "detail": "Overridden by the --model flag and the GEMINI_MODEL environment variable. Falls back to auto model selection if unset.",
+      "docsUrl": "https://geminicli.com/docs/cli/model-routing/",
+      "concept": "model.default"
+    },
+    {
+      "key": "model.maxSessionTurns",
+      "file": "settings.json",
+      "type": "number",
+      "default": -1,
+      "scopes": ["user", "project"],
+      "category": "Model",
+      "summary": "Maximum user/model/tool turns kept in a session. -1 means unlimited.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#model"
+    },
+    {
+      "key": "model.compressionThreshold",
+      "file": "settings.json",
+      "type": "number",
+      "default": 0.5,
+      "scopes": ["user", "project"],
+      "category": "Model",
+      "summary": "Fraction of context window usage at which automatic context compression triggers.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#model",
+      "concept": "compaction"
+    },
+    {
+      "key": "model.disableLoopDetection",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Model",
+      "summary": "Disable automatic detection and prevention of infinite tool-call loops.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#model"
+    },
+    {
+      "key": "model.skipNextSpeakerCheck",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project"],
+      "category": "Model",
+      "summary": "Skip the check that decides whether the model or the user should speak next.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#model"
+    },
+    {
+      "key": "agents.browser.sessionMode",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": ["persistent", "isolated", "existing"],
+      "default": "persistent",
+      "scopes": ["user", "project"],
+      "category": "Agents & sessions",
+      "summary": "Session lifecycle for the browser subagent.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#agents"
+    },
+    {
+      "key": "agents.browser.headless",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Agents & sessions",
+      "summary": "Run the browser subagent in headless mode.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#agents"
+    },
+    {
+      "key": "agents.browser.allowedDomains",
+      "file": "settings.json",
+      "type": "array",
+      "default": ["github.com", "*.google.com", "localhost"],
+      "scopes": ["user", "project"],
+      "category": "Agents & sessions",
+      "summary": "Domains the browser subagent is allowed to navigate to.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#agents"
+    },
+    {
+      "key": "agents.browser.confirmSensitiveActions",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Agents & sessions",
+      "summary": "Require manual confirmation for sensitive browser actions, such as filling forms or evaluating scripts.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#agents"
+    },
+    {
+      "key": "agents.browser.blockFileUploads",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Agents & sessions",
+      "summary": "Hard-block file upload requests initiated by the browser subagent.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#agents"
+    },
+    {
+      "key": "context.fileName",
+      "file": "settings.json",
+      "type": "array",
+      "default": null,
+      "scopes": ["user", "project"],
+      "category": "Memory & context",
+      "summary": "Name or list of names for the context file loaded into memory, instead of the default GEMINI.md.",
+      "docsUrl": "https://geminicli.com/docs/cli/gemini-md/",
+      "concept": "instructions.file"
+    },
+    {
+      "key": "context.includeDirectories",
+      "file": "settings.json",
+      "type": "array",
+      "default": [],
+      "scopes": ["user", "project"],
+      "category": "Memory & context",
+      "summary": "Additional directories to include in the workspace context.",
+      "detail": "Arrays merge across system defaults, user, workspace, and system override settings rather than one layer replacing another.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#context",
+      "concept": "memory"
+    },
+    {
+      "key": "context.discoveryMaxDirs",
+      "file": "settings.json",
+      "type": "number",
+      "default": 200,
+      "scopes": ["user", "project"],
+      "category": "Memory & context",
+      "summary": "Maximum number of directories to search when discovering GEMINI.md files.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#context"
+    },
+    {
+      "key": "context.fileFiltering.respectGitIgnore",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project"],
+      "category": "Memory & context",
+      "summary": "Respect .gitignore rules when searching files.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#context"
+    },
+    {
+      "key": "context.fileFiltering.respectGeminiIgnore",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project"],
+      "category": "Memory & context",
+      "summary": "Respect .geminiignore rules when searching files.",
+      "docsUrl": "https://geminicli.com/docs/cli/gemini-ignore/"
+    },
+    {
+      "key": "tools.sandbox",
+      "file": "settings.json",
+      "type": "string",
+      "default": null,
+      "scopes": ["user", "project", "managed"],
+      "category": "Sandbox",
+      "summary": "Sandbox execution environment: a boolean, a profile path, or a command such as docker, podman, windows-native.",
+      "docsUrl": "https://geminicli.com/docs/cli/sandbox/",
+      "concept": "sandbox.mode"
+    },
+    {
+      "key": "tools.sandboxAllowedPaths",
+      "file": "settings.json",
+      "type": "array",
+      "default": [],
+      "scopes": ["user", "project"],
+      "category": "Sandbox",
+      "summary": "Additional filesystem paths the sandbox is allowed to access.",
+      "docsUrl": "https://geminicli.com/docs/cli/sandbox/",
+      "concept": "sandbox.filesystem"
+    },
+    {
+      "key": "tools.sandboxNetworkAccess",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Sandbox",
+      "summary": "Allow the sandbox to access the network.",
+      "docsUrl": "https://geminicli.com/docs/cli/sandbox/",
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "tools.core",
+      "file": "settings.json",
+      "type": "array",
+      "default": null,
+      "scopes": ["user", "project", "managed"],
+      "category": "Permissions",
+      "summary": "Allowlist that restricts the CLI to only these built-in tools.",
+      "detail": "The recommended way to lock down tool access in enterprise deployments, since it blocks anything not explicitly listed.",
+      "docsUrl": "https://geminicli.com/docs/cli/enterprise/",
+      "concept": "permissions.rules"
+    },
+    {
+      "key": "tools.allowed",
+      "file": "settings.json",
+      "type": "array",
+      "default": null,
+      "scopes": ["user", "project"],
+      "category": "Permissions",
+      "summary": "Tool call patterns that bypass the confirmation dialog, for example run_shell_command(git).",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#tools",
+      "concept": "permissions.rules"
+    },
+    {
+      "key": "tools.exclude",
+      "file": "settings.json",
+      "type": "array",
+      "default": null,
+      "scopes": ["user", "project"],
+      "category": "Permissions",
+      "summary": "Tool names to block from discovery.",
+      "detail": "Deprecated in favor of the Policy Engine, since blocklisting known-bad commands is weaker than allowlisting with tools.core.",
+      "docsUrl": "https://geminicli.com/docs/cli/enterprise/",
+      "flags": ["deprecated"],
+      "concept": "permissions.rules"
+    },
+    {
+      "key": "tools.useRipgrep",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project"],
+      "category": "Tools",
+      "summary": "Use ripgrep for file content search instead of the built-in fallback.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#tools"
+    },
+    {
+      "key": "tools.disableLLMCorrection",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project"],
+      "category": "Tools",
+      "summary": "Disable LLM-based self-correction for edit tools, failing immediately on a non-exact string match instead.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#tools"
+    },
+    {
+      "key": "tools.shell.enableInteractiveShell",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project"],
+      "category": "Tools",
+      "summary": "Use node-pty for an interactive shell experience, falling back to child_process.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#tools"
+    },
+    {
+      "key": "mcp.allowed",
+      "file": "settings.json",
+      "type": "array",
+      "default": null,
+      "scopes": ["user", "project", "managed"],
+      "category": "MCP",
+      "summary": "Allowlist of MCP server names. If set, only listed servers are connected.",
+      "detail": "Combined with a system-level mcpServers definition, this is the recommended way to enforce a locked-down catalog of enterprise MCP tools.",
+      "docsUrl": "https://geminicli.com/docs/cli/enterprise/"
+    },
+    {
+      "key": "mcp.excluded",
+      "file": "settings.json",
+      "type": "array",
+      "default": null,
+      "scopes": ["user", "project"],
+      "category": "MCP",
+      "summary": "MCP server names to exclude from connection.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#mcp"
+    },
+    {
+      "key": "mcpServers.<id>.command",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": ["user", "project", "managed"],
+      "category": "MCP",
+      "summary": "Executable path to launch this MCP server over stdio.",
+      "detail": "One of command, url, or httpUrl is required. If more than one is set, httpUrl wins, then url, then command.",
+      "docsUrl": "https://geminicli.com/docs/tools/mcp-server/",
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "mcpServers.<id>.args",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": ["user", "project", "managed"],
+      "category": "MCP",
+      "summary": "Command-line arguments passed to a stdio MCP server.",
+      "docsUrl": "https://geminicli.com/docs/tools/mcp-server/"
+    },
+    {
+      "key": "mcpServers.<id>.env",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": ["user", "project", "managed"],
+      "category": "MCP",
+      "summary": "Environment variables passed to the MCP server process.",
+      "detail": "Supports $VAR_NAME and ${VAR_NAME} expansion. Variables set here are trusted and skip the automatic secret-redaction that applies to inherited host environment variables.",
+      "docsUrl": "https://geminicli.com/docs/tools/mcp-server/",
+      "flags": ["sensitive"]
+    },
+    {
+      "key": "mcpServers.<id>.url",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": ["user", "project", "managed"],
+      "category": "MCP",
+      "summary": "SSE endpoint URL for a remote MCP server.",
+      "docsUrl": "https://geminicli.com/docs/tools/mcp-server/"
+    },
+    {
+      "key": "mcpServers.<id>.httpUrl",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": ["user", "project", "managed"],
+      "category": "MCP",
+      "summary": "Streamable HTTP endpoint URL for a remote MCP server.",
+      "docsUrl": "https://geminicli.com/docs/tools/mcp-server/"
+    },
+    {
+      "key": "mcpServers.<id>.headers",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": ["user", "project", "managed"],
+      "category": "MCP",
+      "summary": "HTTP headers sent with requests to a url or httpUrl MCP server, typically bearer tokens.",
+      "docsUrl": "https://geminicli.com/docs/tools/mcp-server/",
+      "flags": ["sensitive"]
+    },
+    {
+      "key": "mcpServers.<id>.timeout",
+      "file": "settings.json",
+      "type": "number",
+      "default": 600000,
+      "scopes": ["user", "project", "managed"],
+      "category": "MCP",
+      "summary": "Request timeout in milliseconds for this MCP server.",
+      "docsUrl": "https://geminicli.com/docs/tools/mcp-server/"
+    },
+    {
+      "key": "mcpServers.<id>.trust",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project", "managed"],
+      "category": "MCP",
+      "summary": "Bypass all tool call confirmations for this server's tools.",
+      "docsUrl": "https://geminicli.com/docs/tools/mcp-server/"
+    },
+    {
+      "key": "mcpServers.<id>.includeTools",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": ["user", "project", "managed"],
+      "category": "MCP",
+      "summary": "Allowlist of tool names to expose from this MCP server. Omit to expose all tools.",
+      "docsUrl": "https://geminicli.com/docs/tools/mcp-server/",
+      "concept": "permissions.rules"
+    },
+    {
+      "key": "mcpServers.<id>.excludeTools",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": ["user", "project", "managed"],
+      "category": "MCP",
+      "summary": "Tool names to hide from this MCP server, even if the server exposes them.",
+      "detail": "Takes precedence over includeTools when a tool appears in both lists.",
+      "docsUrl": "https://geminicli.com/docs/tools/mcp-server/",
+      "concept": "permissions.rules"
+    },
+    {
+      "key": "security.toolSandboxing",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Sandbox",
+      "summary": "Isolate individual tool calls instead of sandboxing the entire CLI process.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#security"
+    },
+    {
+      "key": "security.disableYoloMode",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project", "managed"],
+      "category": "Permissions",
+      "summary": "Disable YOLO mode even if a user enables it with a command-line flag.",
+      "detail": "Recommended in enterprise deployments to guarantee tool execution always requires confirmation.",
+      "docsUrl": "https://geminicli.com/docs/cli/enterprise/"
+    },
+    {
+      "key": "security.disableAlwaysAllow",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project", "managed"],
+      "category": "Permissions",
+      "summary": "Disable the Always Allow option in tool confirmation dialogs.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#security"
+    },
+    {
+      "key": "security.enablePermanentToolApproval",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Permissions",
+      "summary": "Offer an Allow for all future sessions option in tool confirmation dialogs.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#security"
+    },
+    {
+      "key": "security.blockGitExtensions",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project", "managed"],
+      "category": "Skills & plugins",
+      "summary": "Block installing or loading extensions from Git.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#security"
+    },
+    {
+      "key": "security.folderTrust.enabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project"],
+      "category": "Permissions",
+      "summary": "Require approving a folder before Gemini CLI loads its project-specific configuration.",
+      "detail": "Disabled by default. When on, an untrusted folder runs in a restricted safe mode: no workspace settings, no project .env, no MCP servers, no custom commands.",
+      "docsUrl": "https://geminicli.com/docs/cli/trusted-folders/",
+      "concept": "trust.projects"
+    },
+    {
+      "key": "security.environmentVariableRedaction.enabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Privacy",
+      "summary": "Redact environment variables that may contain secrets before they reach tools.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#security"
+    },
+    {
+      "key": "security.auth.selectedType",
+      "file": "settings.json",
+      "type": "string",
+      "default": null,
+      "scopes": ["user", "project"],
+      "category": "Auth & providers",
+      "summary": "The authentication method currently selected, for example oauth-personal.",
+      "detail": "Written automatically by the login flow when a user chooses an authentication method. Not meant to be hand-edited.",
+      "docsUrl": "https://geminicli.com/docs/get-started/authentication/",
+      "flags": ["volatile"],
+      "concept": "auth.method"
+    },
+    {
+      "key": "security.auth.enforcedType",
+      "file": "settings.json",
+      "type": "string",
+      "default": null,
+      "scopes": ["managed"],
+      "category": "Auth & providers",
+      "summary": "Authentication method an administrator enforces for all users.",
+      "detail": "Set in the system-level settings.json. Users with a different configured method are prompted to switch, or the CLI exits with an error in non-interactive mode.",
+      "docsUrl": "https://geminicli.com/docs/cli/enterprise/",
+      "flags": ["managedOnly"],
+      "concept": "auth.method"
+    },
+    {
+      "key": "advanced.autoConfigureMemory",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user"],
+      "category": "Other",
+      "summary": "Automatically configure Node.js memory limits.",
+      "detail": "Only read from the global user settings file, since memory is allocated at process boot before workspace settings load.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#advanced"
+    },
+    {
+      "key": "advanced.ignoreLocalEnv",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Other",
+      "summary": "Ignore generic .env files found in the project directory.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#advanced"
+    },
+    {
+      "key": "experimental.gemma",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project"],
+      "category": "Model",
+      "summary": "Enable access to Gemma models through the Gemini API.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#experimental",
+      "flags": ["experimental"]
+    },
+    {
+      "key": "experimental.voiceMode",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Interface",
+      "summary": "Enable voice dictation and voice commands.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#experimental",
+      "flags": ["experimental"]
+    },
+    {
+      "key": "experimental.worktrees",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Git",
+      "summary": "Enable automated Git worktree management for parallel work.",
+      "docsUrl": "https://geminicli.com/docs/cli/git-worktrees/",
+      "flags": ["experimental"]
+    },
+    {
+      "key": "experimental.modelSteering",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Agents & sessions",
+      "summary": "Let the user inject real-time steering hints while the agent is working on a turn.",
+      "docsUrl": "https://geminicli.com/docs/cli/model-steering/",
+      "flags": ["experimental"]
+    },
+    {
+      "key": "experimental.autoMemory",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Memory & context",
+      "summary": "Mine past sessions in the background for durable memory and reusable skills, held for review before use.",
+      "detail": "Writes candidates as unified diff patches and SKILL.md drafts under an inbox; nothing is applied to active files until approved via /memory inbox.",
+      "docsUrl": "https://geminicli.com/docs/cli/auto-memory/",
+      "flags": ["experimental"],
+      "concept": "memory"
+    },
+    {
+      "key": "experimental.extensionRegistry",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Skills & plugins",
+      "summary": "Enable the extension registry explore UI.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#experimental",
+      "flags": ["experimental"]
+    },
+    {
+      "key": "skills.enabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project"],
+      "category": "Skills & plugins",
+      "summary": "Enable Agent Skills.",
+      "docsUrl": "https://geminicli.com/docs/cli/skills/"
+    },
+    {
+      "key": "skills.disabled",
+      "file": "settings.json",
+      "type": "array",
+      "default": [],
+      "scopes": ["user", "project"],
+      "category": "Skills & plugins",
+      "summary": "Names of individual skills to disable.",
+      "docsUrl": "https://geminicli.com/docs/cli/skills/"
+    },
+    {
+      "key": "hooksConfig.enabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Canonical toggle for the hooks system. When disabled, no hooks run.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#hooksconfig",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooksConfig.notifications",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Show visual indicators while hooks are executing.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#hooksconfig"
+    },
+    {
+      "key": "hooks.SessionStart",
+      "file": "settings.json",
+      "type": "array",
+      "default": [],
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Hooks that run when a session starts, for initializing session-specific resources or state.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#hooks",
+      "concept": "hooks"
+    },
+    {
+      "key": "privacy.usageStatisticsEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project", "managed"],
+      "category": "Privacy",
+      "summary": "Collect anonymized usage statistics such as tool call outcomes and session configuration.",
+      "detail": "Does not include prompt or response content, file content, or personally identifiable information.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#usage-statistics",
+      "concept": "telemetry"
+    },
+    {
+      "key": "telemetry.enabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project", "managed"],
+      "category": "Privacy",
+      "summary": "Enable OpenTelemetry logs, metrics, and traces for this CLI.",
+      "docsUrl": "https://geminicli.com/docs/cli/telemetry/",
+      "concept": "telemetry"
+    },
+    {
+      "key": "telemetry.target",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": ["local", "gcp"],
+      "default": "local",
+      "scopes": ["user", "project", "managed"],
+      "category": "Privacy",
+      "summary": "Where telemetry data is sent.",
+      "docsUrl": "https://geminicli.com/docs/cli/telemetry/",
+      "concept": "telemetry"
+    },
+    {
+      "key": "telemetry.otlpEndpoint",
+      "file": "settings.json",
+      "type": "string",
+      "default": "http://localhost:4317",
+      "scopes": ["user", "project", "managed"],
+      "category": "Privacy",
+      "summary": "OTLP collector endpoint for telemetry export.",
+      "docsUrl": "https://geminicli.com/docs/cli/telemetry/"
+    },
+    {
+      "key": "telemetry.logPrompts",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user", "project", "managed"],
+      "category": "Privacy",
+      "summary": "Include user prompt content in telemetry logs.",
+      "detail": "Set to false in enterprise deployments to avoid collecting potentially sensitive prompt content alongside audit telemetry.",
+      "docsUrl": "https://geminicli.com/docs/cli/telemetry/",
+      "flags": ["sensitive"]
+    },
+    {
+      "key": "admin.secureModeEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["managed"],
+      "category": "Enterprise",
+      "summary": "Disallow YOLO mode and Always Allow options across the CLI.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#admin",
+      "flags": ["managedOnly"]
+    },
+    {
+      "key": "admin.extensions.enabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["managed"],
+      "category": "Enterprise",
+      "summary": "Allow extensions to be installed or used at all.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#admin",
+      "flags": ["managedOnly"]
+    },
+    {
+      "key": "admin.mcp.enabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["managed"],
+      "category": "Enterprise",
+      "summary": "Allow MCP servers to be used at all.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#admin",
+      "flags": ["managedOnly"]
+    },
+    {
+      "key": "policyPaths",
+      "file": "settings.json",
+      "type": "array",
+      "default": [],
+      "scopes": ["user", "project", "managed"],
+      "category": "Enterprise",
+      "summary": "Additional policy files or directories to load for the tool-execution Policy Engine.",
+      "docsUrl": "https://geminicli.com/docs/reference/policy-engine/"
+    },
+    {
+      "key": "adminPolicyPaths",
+      "file": "settings.json",
+      "type": "array",
+      "default": [],
+      "scopes": ["managed"],
+      "category": "Enterprise",
+      "summary": "Additional admin-only policy files or directories to load.",
+      "docsUrl": "https://geminicli.com/docs/reference/policy-engine/",
+      "flags": ["managedOnly"]
+    }
+  ],
+  "paths": [
+    {
+      "path": "~/.gemini/settings.json",
+      "kind": "settings",
+      "scope": "user",
+      "editable": true,
+      "summary": "User-level Gemini CLI configuration, nested by domain (general, ui, security, mcpServers, and so on).",
+      "docsUrl": "https://geminicli.com/docs/cli/settings/"
+    },
+    {
+      "path": "~/.gemini/GEMINI.md",
+      "kind": "instructions",
+      "scope": "user",
+      "editable": true,
+      "summary": "Global context file with default instructions loaded into every project.",
+      "docsUrl": "https://geminicli.com/docs/cli/gemini-md/"
+    },
+    {
+      "path": "~/.gemini/skills/",
+      "kind": "skills",
+      "scope": "user",
+      "editable": true,
+      "summary": "User-level Agent Skills, one directory per skill with a SKILL.md entrypoint. Often symlinked from a shared ~/.agents/skills directory.",
+      "docsUrl": "https://geminicli.com/docs/cli/skills/"
+    },
+    {
+      "path": "~/.gemini/trustedFolders.json",
+      "kind": "trust",
+      "scope": "user",
+      "editable": true,
+      "summary": "Per-folder trust decisions from the Trusted Folders dialog.",
+      "docsUrl": "https://geminicli.com/docs/cli/trusted-folders/"
+    },
+    {
+      "path": "~/.gemini/commands/",
+      "kind": "commands",
+      "scope": "user",
+      "editable": true,
+      "summary": "User-defined custom slash commands as .toml files.",
+      "docsUrl": "https://geminicli.com/docs/cli/custom-commands/"
+    },
+    {
+      "path": "~/.gemini/extensions/",
+      "kind": "plugins",
+      "scope": "user",
+      "editable": true,
+      "summary": "Installed Gemini CLI extensions, which can bundle MCP servers, skills, and context files.",
+      "docsUrl": "https://geminicli.com/docs/extensions/"
+    },
+    {
+      "path": "~/.gemini/.env",
+      "kind": "settings",
+      "scope": "user",
+      "editable": true,
+      "summary": "User-wide environment variables, such as GEMINI_API_KEY or GOOGLE_CLOUD_PROJECT, loaded if no closer .env file is found.",
+      "docsUrl": "https://geminicli.com/docs/get-started/authentication/"
+    },
+    {
+      "path": "~/.gemini/projects.json",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Registry of known projects the CLI has been run in."
+    },
+    {
+      "path": "~/.gemini/state.json",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Miscellaneous persisted CLI state."
+    },
+    {
+      "path": "~/.gemini/installation_id",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Anonymous installation identifier used for usage statistics."
+    },
+    {
+      "path": "~/.gemini/history/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Shadow git repositories holding checkpoint snapshots, one per project hash.",
+      "docsUrl": "https://geminicli.com/docs/cli/checkpointing/"
+    },
+    {
+      "path": "~/.gemini/tmp/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Per-project temporary data, including checkpoint conversation history and session transcripts.",
+      "docsUrl": "https://geminicli.com/docs/cli/checkpointing/"
+    },
+    {
+      "path": "~/.gemini/antigravity/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "State used by Antigravity IDE integration."
+    },
+    {
+      "path": "~/.gemini/oauth_creds.json",
+      "kind": "credential",
+      "scope": "user",
+      "editable": false,
+      "summary": "Cached OAuth credentials from Google account sign-in. Never read or display this file."
+    },
+    {
+      "path": "~/.gemini/google_accounts.json",
+      "kind": "credential",
+      "scope": "user",
+      "editable": false,
+      "summary": "Cached Google account identity data. Never read or display this file."
+    },
+    {
+      "path": "~/.gemini/mcp-oauth-tokens.json",
+      "kind": "credential",
+      "scope": "user",
+      "editable": false,
+      "summary": "Cached OAuth tokens for MCP servers that require their own authentication. Never read or display this file."
+    },
+    {
+      "path": "<project>/.gemini/settings.json",
+      "kind": "settings",
+      "scope": "project",
+      "editable": true,
+      "summary": "Project-level Gemini CLI configuration, merged over and overriding user settings.",
+      "docsUrl": "https://geminicli.com/docs/cli/settings/"
+    },
+    {
+      "path": "<project>/GEMINI.md",
+      "kind": "instructions",
+      "scope": "project",
+      "editable": true,
+      "summary": "Project context file with instructions specific to this codebase.",
+      "docsUrl": "https://geminicli.com/docs/cli/gemini-md/"
+    },
+    {
+      "path": "<project>/.gemini/skills/",
+      "kind": "skills",
+      "scope": "project",
+      "editable": true,
+      "summary": "Workspace Agent Skills, shared with the team through version control. Also readable via the .agents/skills alias.",
+      "docsUrl": "https://geminicli.com/docs/cli/skills/"
+    },
+    {
+      "path": "<project>/.gemini/commands/",
+      "kind": "commands",
+      "scope": "project",
+      "editable": true,
+      "summary": "Project-defined custom slash commands as .toml files, shared through version control.",
+      "docsUrl": "https://geminicli.com/docs/cli/custom-commands/"
+    },
+    {
+      "path": "<project>/.gemini/sandbox.Dockerfile",
+      "kind": "rules",
+      "scope": "project",
+      "editable": true,
+      "summary": "Custom Dockerfile extending the base sandbox image for this project.",
+      "docsUrl": "https://geminicli.com/docs/reference/configuration/#sandboxing"
+    },
+    {
+      "path": "<project>/.gemini/.env",
+      "kind": "settings",
+      "scope": "project",
+      "editable": true,
+      "summary": "Project-scoped environment variables, loaded before user-level .env files.",
+      "docsUrl": "https://geminicli.com/docs/get-started/authentication/"
+    }
+  ]
+}

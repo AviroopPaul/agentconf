@@ -1,0 +1,757 @@
+{
+  "agent": "cursor",
+  "displayName": "Cursor",
+  "vendor": "Anysphere",
+  "packVersion": "2026.09.14",
+  "sources": [
+    "https://cursor.com/docs/cli/reference/configuration",
+    "https://cursor.com/docs/cli/mcp",
+    "https://cursor.com/docs/mcp",
+    "https://cursor.com/docs/hooks",
+    "https://cursor.com/docs/reference/plugins",
+    "https://cursor.com/docs/context/rules",
+    "https://cursor.com/docs/rules",
+    "https://cursor.com/docs/cli/reference/permissions"
+  ],
+  "keys": [
+    {
+      "key": "version",
+      "file": "cli-config.json",
+      "type": "number",
+      "default": 1,
+      "scopes": ["user"],
+      "category": "Other",
+      "summary": "Schema version of cli-config.json, currently 1.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#required-fields",
+      "flags": ["volatile"]
+    },
+    {
+      "key": "editor.vimMode",
+      "file": "cli-config.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user"],
+      "category": "Interface",
+      "summary": "Enable Vim keybindings in the CLI editor.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#required-fields",
+      "concept": "editor.vim"
+    },
+    {
+      "key": "permissions.allow",
+      "file": "cli-config.json",
+      "type": "array",
+      "default": [],
+      "scopes": ["user", "project"],
+      "category": "Permissions",
+      "summary": "List of Tool(arg) strings the agent may run without asking.",
+      "detail": "Entries use a Tool(arg) syntax such as Shell(ls), Read(src/**/*.ts), or Mcp(server:tool). A matching deny rule always wins over an allow rule.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/permissions#configuration",
+      "concept": "permissions.rules"
+    },
+    {
+      "key": "permissions.deny",
+      "file": "cli-config.json",
+      "type": "array",
+      "default": [],
+      "scopes": ["user", "project"],
+      "category": "Permissions",
+      "summary": "List of Tool(arg) strings the agent is always blocked from running.",
+      "detail": "Uses the same Tool(arg) syntax as permissions.allow: Shell(commandBase), Read(pathOrGlob), Write(pathOrGlob), WebFetch(domainOrPattern), Mcp(server:tool).",
+      "docsUrl": "https://cursor.com/docs/cli/reference/permissions#configuration",
+      "concept": "permissions.rules"
+    },
+    {
+      "key": "channel",
+      "file": "cli-config.json",
+      "type": "string",
+      "scopes": ["user"],
+      "category": "Updates",
+      "summary": "Release channel used when the CLI checks for updates.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#optional-fields",
+      "concept": "updates"
+    },
+    {
+      "key": "model",
+      "file": "cli-config.json",
+      "type": "object",
+      "scopes": ["user"],
+      "category": "Model",
+      "summary": "Selected model configuration for the CLI.",
+      "detail": "Normally set with the /model slash command rather than edited directly.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#optional-fields",
+      "concept": "model.default"
+    },
+    {
+      "key": "maxMode",
+      "file": "cli-config.json",
+      "type": "boolean",
+      "scopes": ["user"],
+      "category": "Model",
+      "summary": "Persisted preference for Max Mode in the model picker.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#optional-fields",
+      "concept": "model.effort"
+    },
+    {
+      "key": "hasChangedDefaultModel",
+      "file": "cli-config.json",
+      "type": "boolean",
+      "scopes": ["user"],
+      "category": "Model",
+      "summary": "CLI-managed flag recording whether the default model has been changed.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#optional-fields",
+      "flags": ["volatile"]
+    },
+    {
+      "key": "notifications",
+      "file": "cli-config.json",
+      "type": "boolean",
+      "scopes": ["user"],
+      "category": "Notifications",
+      "summary": "Send a terminal notification when the agent finishes or needs input.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#optional-fields",
+      "concept": "notifications"
+    },
+    {
+      "key": "hints",
+      "file": "cli-config.json",
+      "type": "boolean",
+      "scopes": ["user"],
+      "category": "Interface",
+      "summary": "Show CLI hints while the agent is working.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#optional-fields"
+    },
+    {
+      "key": "rewind",
+      "file": "cli-config.json",
+      "type": "boolean",
+      "scopes": ["user"],
+      "category": "Agents & sessions",
+      "summary": "Enable /rewind to restore an earlier message in the session.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#optional-fields",
+      "concept": "history"
+    },
+    {
+      "key": "suggestNextPrompt",
+      "file": "cli-config.json",
+      "type": "boolean",
+      "scopes": ["user"],
+      "category": "Interface",
+      "summary": "Suggest a follow-up prompt at the end of each turn.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#optional-fields"
+    },
+    {
+      "key": "display.showLineNumbers",
+      "file": "cli-config.json",
+      "type": "boolean",
+      "scopes": ["user"],
+      "category": "Interface",
+      "summary": "Show line numbers in rendered code blocks.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#optional-fields"
+    },
+    {
+      "key": "display.showThinkingBlocks",
+      "file": "cli-config.json",
+      "type": "boolean",
+      "scopes": ["user"],
+      "category": "Interface",
+      "summary": "Render model thinking blocks when available.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#optional-fields"
+    },
+    {
+      "key": "display.showStatusIndicators",
+      "file": "cli-config.json",
+      "type": "boolean",
+      "scopes": ["user"],
+      "category": "Interface",
+      "summary": "Enable terminal title status indicators.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#optional-fields"
+    },
+    {
+      "key": "display.showStatusLineRunningTime",
+      "file": "cli-config.json",
+      "type": "boolean",
+      "scopes": ["user"],
+      "category": "Interface",
+      "summary": "Show elapsed running time in the status line.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#optional-fields"
+    },
+    {
+      "key": "approvalMode",
+      "file": "cli-config.json",
+      "type": "enum",
+      "enumValues": ["allowlist", "auto-review", "unrestricted"],
+      "scopes": ["user"],
+      "category": "Permissions",
+      "summary": "Controls how much the agent can run before asking for approval.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#optional-fields",
+      "concept": "permissions.mode"
+    },
+    {
+      "key": "sandbox.mode",
+      "file": "cli-config.json",
+      "type": "string",
+      "scopes": ["user"],
+      "category": "Sandbox",
+      "summary": "Overrides the sandbox mode used to isolate agent actions.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#optional-fields",
+      "concept": "sandbox.mode"
+    },
+    {
+      "key": "sandbox.networkAccess",
+      "file": "cli-config.json",
+      "type": "string",
+      "scopes": ["user"],
+      "category": "Sandbox",
+      "summary": "Controls network access available to the sandbox.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#optional-fields",
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "network.useHttp1ForAgent",
+      "file": "cli-config.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user"],
+      "category": "Other",
+      "summary": "Use HTTP/1.1 instead of HTTP/2 for agent connections.",
+      "detail": "Needed behind corporate proxies, such as Zscaler, that do not support HTTP/2 bidirectional streaming. Switches to HTTP/1.1 with Server-Sent Events.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#http11-fallback"
+    },
+    {
+      "key": "attribution.attributeCommitsToAgent",
+      "file": "cli-config.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user"],
+      "category": "Git",
+      "summary": "Add a Made with Cursor trailer to commits the agent creates.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#optional-fields",
+      "concept": "attribution"
+    },
+    {
+      "key": "attribution.attributePRsToAgent",
+      "file": "cli-config.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": ["user"],
+      "category": "Git",
+      "summary": "Add a Made with Cursor footer to pull requests the agent creates.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration#optional-fields",
+      "concept": "attribution"
+    },
+    {
+      "key": "mcpServers.<id>",
+      "file": "mcp.json",
+      "type": "object",
+      "scopes": ["user", "project"],
+      "category": "MCP",
+      "summary": "One configured MCP server, keyed by an arbitrary server id.",
+      "detail": "Shared verbatim between the Cursor IDE and the Cursor CLI. Three shapes fit here: stdio (command/args), plain HTTP or SSE (url), and authenticated HTTP (url plus headers or auth).",
+      "docsUrl": "https://cursor.com/docs/mcp#using-mcpjson",
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "mcpServers.<id>.command",
+      "file": "mcp.json",
+      "type": "string",
+      "scopes": ["user", "project"],
+      "category": "MCP",
+      "summary": "Executable that starts a stdio MCP server, for example npx, node, or python.",
+      "docsUrl": "https://cursor.com/docs/mcp#stdio-server-configuration"
+    },
+    {
+      "key": "mcpServers.<id>.args",
+      "file": "mcp.json",
+      "type": "array",
+      "scopes": ["user", "project"],
+      "category": "MCP",
+      "summary": "Arguments passed to a stdio server's command.",
+      "docsUrl": "https://cursor.com/docs/mcp#stdio-server-configuration"
+    },
+    {
+      "key": "mcpServers.<id>.env",
+      "file": "mcp.json",
+      "type": "object",
+      "scopes": ["user", "project"],
+      "category": "MCP",
+      "summary": "Environment variables passed to a stdio MCP server.",
+      "docsUrl": "https://cursor.com/docs/mcp#stdio-server-configuration",
+      "flags": ["sensitive"]
+    },
+    {
+      "key": "mcpServers.<id>.envFile",
+      "file": "mcp.json",
+      "type": "string",
+      "scopes": ["user", "project"],
+      "category": "MCP",
+      "summary": "Path to an env file with more variables for a stdio server.",
+      "detail": "Only available for stdio servers. Remote HTTP or SSE servers cannot use envFile.",
+      "docsUrl": "https://cursor.com/docs/mcp#stdio-server-configuration",
+      "flags": ["sensitive"]
+    },
+    {
+      "key": "mcpServers.<id>.type",
+      "file": "mcp.json",
+      "type": "enum",
+      "enumValues": ["stdio"],
+      "scopes": ["user", "project"],
+      "category": "MCP",
+      "summary": "Declares a stdio server's connection type.",
+      "docsUrl": "https://cursor.com/docs/mcp#stdio-server-configuration"
+    },
+    {
+      "key": "mcpServers.<id>.url",
+      "file": "mcp.json",
+      "type": "string",
+      "scopes": ["user", "project"],
+      "category": "MCP",
+      "summary": "Endpoint for a remote HTTP or SSE MCP server.",
+      "docsUrl": "https://cursor.com/docs/mcp#using-mcpjson"
+    },
+    {
+      "key": "mcpServers.<id>.headers",
+      "file": "mcp.json",
+      "type": "object",
+      "scopes": ["user", "project"],
+      "category": "MCP",
+      "summary": "HTTP headers sent to a remote MCP server, typically carrying auth tokens.",
+      "docsUrl": "https://cursor.com/docs/mcp#using-mcpjson",
+      "flags": ["sensitive"]
+    },
+    {
+      "key": "mcpServers.<id>.auth.CLIENT_ID",
+      "file": "mcp.json",
+      "type": "string",
+      "scopes": ["user", "project"],
+      "category": "MCP",
+      "summary": "Static OAuth client ID for a remote server that does not support dynamic client registration.",
+      "docsUrl": "https://cursor.com/docs/mcp#static-oauth-for-remote-servers"
+    },
+    {
+      "key": "mcpServers.<id>.auth.CLIENT_SECRET",
+      "file": "mcp.json",
+      "type": "string",
+      "scopes": ["user", "project"],
+      "category": "MCP",
+      "summary": "Static OAuth client secret for a remote server, when the provider uses confidential clients.",
+      "docsUrl": "https://cursor.com/docs/mcp#static-oauth-for-remote-servers",
+      "flags": ["sensitive"]
+    },
+    {
+      "key": "mcpServers.<id>.auth.scopes",
+      "file": "mcp.json",
+      "type": "array",
+      "scopes": ["user", "project"],
+      "category": "MCP",
+      "summary": "OAuth scopes to request from the MCP provider.",
+      "detail": "If omitted, Cursor discovers supported scopes from the server's /.well-known/oauth-authorization-server metadata.",
+      "docsUrl": "https://cursor.com/docs/mcp#static-oauth-for-remote-servers"
+    },
+    {
+      "key": "version",
+      "file": "hooks.json",
+      "type": "number",
+      "default": 1,
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Schema version of hooks.json, currently 1.",
+      "docsUrl": "https://cursor.com/docs/hooks#global-configuration-options",
+      "flags": ["volatile"],
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.beforeShellExecution",
+      "file": "hooks.json",
+      "type": "array",
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Hook that runs before a shell command executes, can allow, deny, or ask.",
+      "docsUrl": "https://cursor.com/docs/hooks#beforeshellexecution--beforemcpexecution",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.afterShellExecution",
+      "file": "hooks.json",
+      "type": "array",
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Hook that runs after a shell command finishes, for auditing or side effects.",
+      "docsUrl": "https://cursor.com/docs/hooks#aftershellexecution",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.beforeMCPExecution",
+      "file": "hooks.json",
+      "type": "array",
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Hook that runs before an MCP tool call, can allow, deny, or ask.",
+      "detail": "Recommended to set failClosed true here, since it gates calls out to external MCP tools.",
+      "docsUrl": "https://cursor.com/docs/hooks#beforeshellexecution--beforemcpexecution",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.afterMCPExecution",
+      "file": "hooks.json",
+      "type": "array",
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Hook that runs after an MCP tool call completes.",
+      "docsUrl": "https://cursor.com/docs/hooks#aftermcpexecution",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.beforeReadFile",
+      "file": "hooks.json",
+      "type": "array",
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Hook that runs before the agent reads a file, can redact or block the read.",
+      "docsUrl": "https://cursor.com/docs/hooks#beforereadfile",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.afterFileEdit",
+      "file": "hooks.json",
+      "type": "array",
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Hook that runs after the agent edits a file, commonly used to run formatters.",
+      "docsUrl": "https://cursor.com/docs/hooks#afterfileedit",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.beforeSubmitPrompt",
+      "file": "hooks.json",
+      "type": "array",
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Hook that runs before a prompt is submitted, can validate or block it.",
+      "docsUrl": "https://cursor.com/docs/hooks#beforesubmitprompt",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.stop",
+      "file": "hooks.json",
+      "type": "array",
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Hook that runs when the agent finishes a turn, can trigger an automatic follow-up.",
+      "detail": "A followup_message in the hook's output starts another turn, up to loop_limit times.",
+      "docsUrl": "https://cursor.com/docs/hooks#stop",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.sessionStart",
+      "file": "hooks.json",
+      "type": "array",
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Hook that runs at the start of an agent session, useful for injecting context.",
+      "docsUrl": "https://cursor.com/docs/hooks#sessionstart",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.sessionEnd",
+      "file": "hooks.json",
+      "type": "array",
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Hook that runs at the end of an agent session.",
+      "docsUrl": "https://cursor.com/docs/hooks#sessionend",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.preToolUse",
+      "file": "hooks.json",
+      "type": "array",
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Generic hook that runs before any tool call, filterable by tool with a matcher.",
+      "docsUrl": "https://cursor.com/docs/hooks#pretooluse",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.postToolUse",
+      "file": "hooks.json",
+      "type": "array",
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Generic hook that runs after any tool call completes.",
+      "docsUrl": "https://cursor.com/docs/hooks#posttooluse",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.preCompact",
+      "file": "hooks.json",
+      "type": "array",
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Hook that observes context window compaction.",
+      "docsUrl": "https://cursor.com/docs/hooks#precompact",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.<event>.command",
+      "file": "hooks.json",
+      "type": "string",
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Script path or shell command the hook runs.",
+      "docsUrl": "https://cursor.com/docs/hooks#per-script-configuration-options",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.<event>.type",
+      "file": "hooks.json",
+      "type": "enum",
+      "enumValues": ["command", "prompt"],
+      "default": "command",
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Whether the hook runs a script or asks an LLM to evaluate a condition.",
+      "docsUrl": "https://cursor.com/docs/hooks#per-script-configuration-options",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.<event>.timeout",
+      "file": "hooks.json",
+      "type": "number",
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Execution timeout for the hook, in seconds.",
+      "docsUrl": "https://cursor.com/docs/hooks#per-script-configuration-options",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.<event>.loop_limit",
+      "file": "hooks.json",
+      "type": "number",
+      "default": 5,
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Cap on automatic follow-ups a stop or subagentStop hook can trigger.",
+      "detail": "Set to null to remove the cap. Defaults to 5 for Cursor's own hooks and null for loaded Claude Code hooks.",
+      "docsUrl": "https://cursor.com/docs/hooks#per-script-configuration-options",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.<event>.failClosed",
+      "file": "hooks.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Block the action on hook failure instead of allowing it through.",
+      "detail": "Hook failures include a crash, a timeout, or invalid JSON output. Recommended true for beforeMCPExecution and other security-critical hooks.",
+      "docsUrl": "https://cursor.com/docs/hooks#per-script-configuration-options",
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.<event>.matcher",
+      "file": "hooks.json",
+      "type": "string",
+      "scopes": ["user", "project"],
+      "category": "Hooks",
+      "summary": "Filters which invocations trigger the hook.",
+      "detail": "Matched value depends on the event: a tool name for preToolUse, the shell command text for beforeShellExecution, a subagent type for subagentStart, and so on.",
+      "docsUrl": "https://cursor.com/docs/hooks#matcher-configuration",
+      "concept": "hooks"
+    },
+    {
+      "key": "description",
+      "file": "rules/*.mdc",
+      "type": "string",
+      "scopes": ["user", "project"],
+      "category": "Memory & context",
+      "summary": "What the rule covers, used by the agent to decide relevance when alwaysApply is false.",
+      "docsUrl": "https://cursor.com/docs/rules#rule-anatomy",
+      "concept": "instructions.file"
+    },
+    {
+      "key": "globs",
+      "file": "rules/*.mdc",
+      "type": "string",
+      "scopes": ["user", "project"],
+      "category": "Memory & context",
+      "summary": "Comma-separated file patterns that auto-attach the rule when a matching file is in context.",
+      "detail": "Ignored when alwaysApply is true. Can also be an array of patterns.",
+      "docsUrl": "https://cursor.com/docs/rules#glob-pattern-examples",
+      "concept": "instructions.file"
+    },
+    {
+      "key": "alwaysApply",
+      "file": "rules/*.mdc",
+      "type": "boolean",
+      "default": false,
+      "scopes": ["user", "project"],
+      "category": "Memory & context",
+      "summary": "If true, the rule is included in every session and globs and description are ignored.",
+      "docsUrl": "https://cursor.com/docs/rules#rule-anatomy",
+      "concept": "instructions.file"
+    }
+  ],
+  "paths": [
+    {
+      "path": "~/.cursor/cli-config.json",
+      "kind": "settings",
+      "scope": "user",
+      "editable": true,
+      "summary": "CLI settings: schema version, editor preferences, and permission rules.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration"
+    },
+    {
+      "path": "~/.cursor/mcp.json",
+      "kind": "mcp",
+      "scope": "user",
+      "editable": true,
+      "summary": "MCP servers available to both the Cursor IDE and the Cursor CLI, in one shared file.",
+      "docsUrl": "https://cursor.com/docs/mcp"
+    },
+    {
+      "path": "~/.cursor/rules/",
+      "kind": "rules",
+      "scope": "user",
+      "editable": true,
+      "summary": "User-level rules and conventions, applied across every project.",
+      "docsUrl": "https://cursor.com/docs/rules"
+    },
+    {
+      "path": "~/.cursor/commands/",
+      "kind": "commands",
+      "scope": "user",
+      "editable": true,
+      "summary": "Custom commands available to the agent from any project."
+    },
+    {
+      "path": "~/.cursor/skills/",
+      "kind": "skills",
+      "scope": "user",
+      "editable": true,
+      "summary": "User-authored skills. Also read by other agents that scan this directory, such as Claude Code and Codex.",
+      "docsUrl": "https://cursor.com/docs/skills"
+    },
+    {
+      "path": "~/.cursor/skills-cursor/",
+      "kind": "vendor",
+      "scope": "user",
+      "editable": false,
+      "summary": "Cursor-managed skills synced from the vendor, tracked by .cursor-managed-skills-manifest.json and .sync-manifest.json. Do not edit by hand.",
+      "docsUrl": "https://cursor.com/docs/skills"
+    },
+    {
+      "path": "~/.cursor/hooks.json",
+      "kind": "hooks",
+      "scope": "user",
+      "editable": true,
+      "summary": "User-level lifecycle hooks that run before or after agent actions.",
+      "docsUrl": "https://cursor.com/docs/hooks"
+    },
+    {
+      "path": "~/.cursor/plugins/",
+      "kind": "plugins",
+      "scope": "user",
+      "editable": true,
+      "summary": "Installed plugins bundling rules, skills, agents, commands, MCP servers, and hooks.",
+      "docsUrl": "https://cursor.com/docs/reference/plugins"
+    },
+    {
+      "path": "~/.cursor/plugins/local/",
+      "kind": "plugins",
+      "scope": "user",
+      "editable": true,
+      "summary": "Locally authored plugins, not installed from a marketplace.",
+      "docsUrl": "https://cursor.com/docs/reference/plugins"
+    },
+    {
+      "path": "~/.cursor/argv.json",
+      "kind": "settings",
+      "scope": "user",
+      "editable": true,
+      "summary": "Electron runtime arguments for the Cursor IDE. Advanced, edit with caution."
+    },
+    {
+      "path": "~/.cursor/extensions/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Installed IDE extension state. Machine-managed, not user configuration."
+    },
+    {
+      "path": "~/.cursor/projects/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Per-project IDE state such as recent workspaces. Machine-managed."
+    },
+    {
+      "path": "~/.cursor/ai-tracking/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Internal usage and telemetry tracking data. Machine-managed."
+    },
+    {
+      "path": "~/.cursor/ide_state.json",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "IDE window and session state. Machine-managed, not user configuration."
+    },
+    {
+      "path": "~/.cursor/plans/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Generated .plan.md files from agent planning. Browsable but not config."
+    },
+    {
+      "path": "<project>/.cursor/mcp.json",
+      "kind": "mcp",
+      "scope": "project",
+      "editable": true,
+      "summary": "Project-scoped MCP servers, merged with the user-level mcp.json.",
+      "docsUrl": "https://cursor.com/docs/mcp"
+    },
+    {
+      "path": "<project>/.cursor/rules/",
+      "kind": "rules",
+      "scope": "project",
+      "editable": true,
+      "summary": "Project rules, version-controlled and scoped by path patterns.",
+      "docsUrl": "https://cursor.com/docs/rules"
+    },
+    {
+      "path": "<project>/.cursor/hooks.json",
+      "kind": "hooks",
+      "scope": "project",
+      "editable": true,
+      "summary": "Project-level lifecycle hooks, checked into version control with the repo.",
+      "docsUrl": "https://cursor.com/docs/hooks"
+    },
+    {
+      "path": "<project>/.cursor/cli.json",
+      "kind": "settings",
+      "scope": "project",
+      "editable": true,
+      "summary": "Project-level CLI overrides. Only permissions can be set here, every other CLI setting is global.",
+      "docsUrl": "https://cursor.com/docs/cli/reference/configuration"
+    },
+    {
+      "path": "<project>/AGENTS.md",
+      "kind": "instructions",
+      "scope": "project",
+      "editable": true,
+      "summary": "Plain-markdown agent instructions, the cross-agent standard Cursor also reads.",
+      "docsUrl": "https://cursor.com/docs/rules"
+    },
+    {
+      "path": "<project>/.cursorrules",
+      "kind": "instructions",
+      "scope": "project",
+      "editable": true,
+      "summary": "Deprecated single-file rules format, superseded by .cursor/rules/.",
+      "docsUrl": "https://cursor.com/docs/rules"
+    }
+  ]
+}

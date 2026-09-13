@@ -1,0 +1,4276 @@
+{
+  "agent": "claude",
+  "displayName": "Claude Code",
+  "vendor": "Anthropic",
+  "packVersion": "2026.09.14",
+  "sources": [
+    "https://code.claude.com/docs/en/settings-reference",
+    "https://code.claude.com/docs/en/claude-directory",
+    "https://code.claude.com/docs/en/keybindings",
+    "https://code.claude.com/docs/en/settings"
+  ],
+  "keys": [
+    {
+      "key": "advisorModel",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Pick which model answers when Claude asks the advisor tool.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#advisormodel",
+      "concept": "model.default"
+    },
+    {
+      "key": "agent",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Agents & sessions",
+      "summary": "Start every session as a named subagent with its prompt, tools, and model.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#agent",
+      "concept": "persona"
+    },
+    {
+      "key": "agentPushNotifEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Notifications",
+      "summary": "Let Claude send a push notification to your phone when it decides to.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#agentpushnotifenabled",
+      "concept": "notifications"
+    },
+    {
+      "key": "allowAllClaudeAiMcps",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "managed"
+      ],
+      "category": "MCP",
+      "summary": "Load the claude.ai connectors Claude Code fetches itself alongside a deployed managed-mcp.json.",
+      "detail": "Load the claude.ai connectors Claude Code fetches itself alongside a deployed managed-mcp.json. Without this key, managed-mcp.json takes exclusive control of MCP servers and suppresses those connectors.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#allowallclaudeaimcps",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "allowedChannelPlugins",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Replace the default allowlist of channel plugins that can push messages.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#allowedchannelplugins",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "plugins"
+    },
+    {
+      "key": "allowedHttpHookUrls",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Hooks",
+      "summary": "Limit which URLs HTTP hooks can target.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#allowedhttphookurls",
+      "concept": "hooks"
+    },
+    {
+      "key": "allowedMcpServers",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "MCP",
+      "summary": "Allowlist which MCP servers users can add.",
+      "detail": "Allowlist the MCP servers people can add. Claude Code blocks any server that doesn't match an entry wherever it's defined, including plugin servers, servers passed with --mcp-config, and servers from claude.ai.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#allowedmcpservers",
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "allowManagedHooksOnly",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Hooks",
+      "summary": "Run only the hooks your organization deploys.",
+      "detail": "Restrict hook execution to hooks your organization deploys.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#allowmanagedhooksonly",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "hooks"
+    },
+    {
+      "key": "allowManagedMcpServersOnly",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "managed"
+      ],
+      "category": "MCP",
+      "summary": "Make the managed MCP allowlist the only one that applies.",
+      "detail": "Make the managed allowlist the only one that applies. Claude Code then reads allowedMcpServers from managed settings alone and ignores allowlists in user, project, and local settings; deniedMcpServers still merges from every settings scope, so users can still block servers for themselves.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#allowmanagedmcpserversonly",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "allowManagedPermissionRulesOnly",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Enterprise",
+      "summary": "Make managed settings the only settings source of permission rules.",
+      "detail": "Make managed settings the only settings source of permission rules. Claude Code then ignores allow, ask, and deny rules in user, project, local, and --settings files, ignores --allowedTools, hides the always-allow choices in permission prompts, and stops saving new rules.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#allowmanagedpermissionrulesonly",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "permissions.rules"
+    },
+    {
+      "key": "alwaysThinkingEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Turn extended thinking off for every session.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#alwaysthinkingenabled"
+    },
+    {
+      "key": "apiKeyHelper",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Auth & providers",
+      "summary": "Generate the API credential with your own command.",
+      "detail": "Run your own command to produce the credential Claude Code sends with model requests. Claude Code runs the command through the system shell, /bin/sh on macOS and Linux and cmd on Windows, and sends its output as both the X-Api-Key and Authorization: Bearer headers.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#apikeyhelper",
+      "flags": [
+        "sensitive"
+      ],
+      "concept": "auth.method"
+    },
+    {
+      "key": "askUserQuestionTimeout",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "60s",
+        "5m",
+        "10m",
+        "never"
+      ],
+      "default": "never",
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Let an unanswered question auto-continue after idle time.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#askuserquestiontimeout",
+      "addedIn": "2.1.200"
+    },
+    {
+      "key": "attribution",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Git",
+      "summary": "Customize the attribution Claude Code adds to commits and pull requests.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#attribution",
+      "concept": "attribution"
+    },
+    {
+      "key": "attribution.commit",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Git",
+      "summary": "Change or hide the trailer Claude Code adds to commits.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#attribution-commit",
+      "concept": "attribution"
+    },
+    {
+      "key": "attribution.pr",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Git",
+      "summary": "Change or hide the attribution line in pull request descriptions.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#attribution-pr",
+      "concept": "attribution"
+    },
+    {
+      "key": "attribution.sessionUrl",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Git",
+      "summary": "Omit the claude.ai session link from cloud and Remote Control commits.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#attribution-sessionurl",
+      "concept": "attribution"
+    },
+    {
+      "key": "autoCompactEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Memory & context",
+      "summary": "Turn automatic compaction off or on.",
+      "detail": "Have Claude Code compact the conversation automatically when context approaches the limit. Appears in /config as Auto-compact, and toggling it there writes this key to your user settings.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#autocompactenabled",
+      "concept": "compaction"
+    },
+    {
+      "key": "autoCompactWindow",
+      "file": "settings.json",
+      "type": "number",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Memory & context",
+      "summary": "Set how full the context gets before Claude Code compacts.",
+      "detail": "Set how full the context window gets before Claude Code compacts automatically.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#autocompactwindow",
+      "concept": "compaction"
+    },
+    {
+      "key": "autoConnectIde",
+      "file": ".claude.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user"
+      ],
+      "category": "Interface",
+      "summary": "Connect to a running VS Code or JetBrains IDE automatically from an external terminal.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#autoconnectide"
+    },
+    {
+      "key": "autoContinueAtUsageLimit",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Wait in the open session and continue the task automatically after a claude.ai usage limit resets.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#autocontinueatusagelimit",
+      "addedIn": "2.1.234"
+    },
+    {
+      "key": "autoInstallIdeExtension",
+      "file": ".claude.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user"
+      ],
+      "category": "Interface",
+      "summary": "Turn off automatic install of the IDE extension from a VS Code terminal.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#autoinstallideextension"
+    },
+    {
+      "key": "autoMemoryDirectory",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Memory & context",
+      "summary": "Store auto memory in a directory you choose.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#automemorydirectory",
+      "concept": "memory"
+    },
+    {
+      "key": "autoMemoryEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Memory & context",
+      "summary": "Turn auto memory off or on.",
+      "detail": "Turn auto memory on or off. When false, Claude doesn't read from or write to the auto memory directory. You can also toggle it with /memory during a session, which writes this key to your user settings.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#automemoryenabled",
+      "concept": "memory"
+    },
+    {
+      "key": "autoMode",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Permissions",
+      "summary": "Add your own allow and deny rules to the auto mode classifier.",
+      "detail": "Add your own rules to what the auto mode classifier blocks and allows. Use it to tell the classifier which repos, buckets, and domains your organization trusts, so it stops blocking routine internal operations.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#automode",
+      "concept": "permissions.mode"
+    },
+    {
+      "key": "autoMode.classifyAllShell",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Permissions",
+      "summary": "Send every shell command through the auto mode classifier, even ones a narrow allow rule matches.",
+      "detail": "Send every Bash and PowerShell command through the auto mode classifier while auto mode is active. By default, auto mode suspends only allow rules that could run arbitrary code: tool-wide and wildcard rules such as Bash(*), and interpreter or shell-wrapper prefixes such as Bash(python *).",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#automode-classifyallshell",
+      "addedIn": "2.1.193",
+      "concept": "permissions.mode"
+    },
+    {
+      "key": "autoScrollEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Follow new output to the bottom in fullscreen rendering.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#autoscrollenabled"
+    },
+    {
+      "key": "autoUpdatesChannel",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "latest",
+        "stable"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Updates",
+      "summary": "Follow the stable release channel instead of latest.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#autoupdateschannel",
+      "concept": "updates"
+    },
+    {
+      "key": "availableModels",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Restrict which models people can pick.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#availablemodels",
+      "concept": "model.default"
+    },
+    {
+      "key": "awaySummaryEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Notifications",
+      "summary": "Turn off the session recap shown when you come back to the terminal.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#awaysummaryenabled",
+      "concept": "notifications"
+    },
+    {
+      "key": "awsAuthRefresh",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Auth & providers",
+      "summary": "Refresh expired Bedrock credentials in .aws with your own command.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#awsauthrefresh",
+      "flags": [
+        "sensitive"
+      ],
+      "concept": "auth.method"
+    },
+    {
+      "key": "awsCredentialExport",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Auth & providers",
+      "summary": "Supply Bedrock credentials as JSON from your own command.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#awscredentialexport",
+      "flags": [
+        "sensitive"
+      ],
+      "concept": "auth.method"
+    },
+    {
+      "key": "axScreenReader",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Render screen-reader friendly output.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#axscreenreader",
+      "addedIn": "2.1.181"
+    },
+    {
+      "key": "bashOutputMaxChars",
+      "file": "settings.json",
+      "type": "number",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Memory & context",
+      "summary": "Set how much of a successful command's output Claude receives inline.",
+      "detail": "Set how many characters of a successful Bash or PowerShell command's output Claude receives inline. When output passes the limit, Claude Code saves it to a file and Claude receives a short preview plus the file's path.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#bashoutputmaxchars",
+      "addedIn": "2.1.261"
+    },
+    {
+      "key": "blockedMarketplaces",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Block plugin marketplace sources for your organization.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#blockedmarketplaces",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "plugins"
+    },
+    {
+      "key": "browserExternalPageTools",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "disabled",
+        "disable"
+      ],
+      "scopes": [
+        "managed"
+      ],
+      "category": "Tools",
+      "summary": "Keep Claude's tools off external pages in the desktop Browser pane.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#browserexternalpagetools",
+      "flags": [
+        "managedOnly"
+      ]
+    },
+    {
+      "key": "channelsEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Allow channels for your organization.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#channelsenabled",
+      "flags": [
+        "managedOnly"
+      ]
+    },
+    {
+      "key": "claudeMd",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Memory & context",
+      "summary": "Inject organization-wide CLAUDE.md instructions from managed settings.",
+      "detail": "Inject CLAUDE.md-style instructions as organization-managed memory without deploying a separate file. Claude Code loads the text as a managed memory entry ahead of user and project CLAUDE.md files.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#claudemd",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "instructions.file"
+    },
+    {
+      "key": "claudeMdExcludes",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Memory & context",
+      "summary": "Skip specific CLAUDE.md files when memory loads.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#claudemdexcludes",
+      "concept": "instructions.file"
+    },
+    {
+      "key": "cleanupPeriodDays",
+      "file": "settings.json",
+      "type": "number",
+      "default": 30,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Privacy",
+      "summary": "Choose how many days Claude Code keeps transcripts before deleting them.",
+      "detail": "Set how many days Claude Code keeps session transcripts and other application data before deleting them. Claude Code runs the deletion as a background sweep after a session starts, as long as it can safely determine the retention period.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#cleanupperioddays",
+      "concept": "history"
+    },
+    {
+      "key": "companyAnnouncements",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Enterprise",
+      "summary": "Show your organization's announcements at startup.",
+      "detail": "Show your organization's announcements to users at startup. When you list more than one, Claude Code picks one at random for each session; on a person's very first launch it shows the first entry.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#companyannouncements"
+    },
+    {
+      "key": "copyOnSelect",
+      "file": ".claude.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user"
+      ],
+      "category": "Interface",
+      "summary": "Turn off automatic copying of text you select with the mouse in fullscreen rendering and agent view.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#copyonselect"
+    },
+    {
+      "key": "crossSessionInbound",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "accept",
+        "hold",
+        "refuse"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Agents & sessions",
+      "summary": "Accept, hold, or refuse messages arriving from your other Claude Code sessions.",
+      "detail": "Choose what this session does with messages arriving from your other Claude Code sessions. When no value applies, Claude Code decides per message from the two sessions' permission-mode classes. Requires Claude Code v2.1.224 or later.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#crosssessioninbound",
+      "addedIn": "2.1.224"
+    },
+    {
+      "key": "defaultShell",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "bash",
+        "powershell"
+      ],
+      "default": "bash",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Choose whether Bash or PowerShell runs the shell commands you type with the ! prefix.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#defaultshell"
+    },
+    {
+      "key": "deniedMcpServers",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "MCP",
+      "summary": "Block specific MCP servers by URL, command, or name.",
+      "detail": "Block specific MCP servers. Claude Code refuses to load a matching server wherever it's defined, including plugin servers, servers passed with --mcp-config, servers from managed-mcp.json, servers from managedMcpServers, and the claude.ai connectors it fetches itself.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#deniedmcpservers",
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "desktopSessionCleanupPeriodDays",
+      "file": "settings.json",
+      "type": "number",
+      "default": 0,
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Privacy",
+      "summary": "Set an age limit in days for Claude Desktop and Cowork transcripts.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#desktopsessioncleanupperioddays",
+      "addedIn": "2.1.248",
+      "concept": "history"
+    },
+    {
+      "key": "dialogExpiry",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "60s",
+        "5m",
+        "10m",
+        "never"
+      ],
+      "default": "5m",
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Set how long a dialog forwarded to Remote Control or an SDK host waits before it is cancelled.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#dialogexpiry",
+      "addedIn": "2.1.224"
+    },
+    {
+      "key": "diffTool",
+      "file": ".claude.json",
+      "type": "enum",
+      "enumValues": [
+        "auto",
+        "terminal"
+      ],
+      "default": "auto",
+      "scopes": [
+        "user"
+      ],
+      "category": "Interface",
+      "summary": "Choose whether Claude's proposed file changes open in the VS Code or JetBrains diff viewer or stay in the terminal.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#difftool"
+    },
+    {
+      "key": "disableAgentView",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Agents & sessions",
+      "summary": "Turn off background agents and agent view.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#disableagentview"
+    },
+    {
+      "key": "disableAllHooks",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Hooks",
+      "summary": "Turn off hooks, a custom status line, and a custom @ file suggestion command at once.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#disableallhooks",
+      "concept": "hooks"
+    },
+    {
+      "key": "disableArtifact",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Notifications",
+      "summary": "Deprecated; use enableArtifact to turn the Artifact tool off.",
+      "detail": "Claude Code still honors disableArtifact: true as equivalent to enableArtifact: false, and ignores disableArtifact: false.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#disableartifact",
+      "flags": [
+        "deprecated"
+      ]
+    },
+    {
+      "key": "disableAutoMode",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "disable"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Permissions",
+      "summary": "Remove auto mode from the permission mode cycle.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#disableautomode",
+      "concept": "permissions.mode"
+    },
+    {
+      "key": "disableBrowserExternalNavigation",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Tools",
+      "summary": "Limit the desktop Browser pane to localhost for people and Claude.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#disablebrowserexternalnavigation",
+      "flags": [
+        "managedOnly"
+      ]
+    },
+    {
+      "key": "disableBundledSkills",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Turn off the skills and workflows included with Claude Code.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#disablebundledskills",
+      "concept": "skills.dir"
+    },
+    {
+      "key": "disableClaudeAiConnectors",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "MCP",
+      "summary": "Turn off claude.ai connectors so Claude Code doesn't fetch them.",
+      "detail": "Turn off the claude.ai MCP connectors Claude Code fetches itself, so it neither fetches nor connects them. A true in any settings file applies: a checked-in project .claude/settings.json can opt a repository out of those connectors, but a project-level false can't override a user- or managed-level true.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#disableclaudeaiconnectors",
+      "addedIn": "2.1.182",
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "disableCommandPluginSources",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Block plugins that install by running a marketplace-declared command.",
+      "detail": "Block the command plugin source, which installs a plugin by running a marketplace-declared command on the user's machine. When you set it to true, Claude Code never runs the command, doesn't install or update command-sourced plugins, and stops loading the ones already installed.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#disablecommandpluginsources",
+      "flags": [
+        "managedOnly"
+      ],
+      "addedIn": "2.1.229",
+      "concept": "plugins"
+    },
+    {
+      "key": "disableDeepLinkRegistration",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "disable"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Notifications",
+      "summary": "Stop Claude Code from registering the claude-cli:// handler.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#disabledeeplinkregistration"
+    },
+    {
+      "key": "disableDesktopLocalSessions",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Notifications",
+      "summary": "Turn off Desktop Code sessions that run on the device, leaving SSH to other hosts and cloud.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#disabledesktoplocalsessions",
+      "flags": [
+        "managedOnly"
+      ]
+    },
+    {
+      "key": "disabledMcpjsonServers",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "MCP",
+      "summary": "Reject specific servers from a project's .mcp.json.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#disabledmcpjsonservers",
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "disableMobileSimulatorTools",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Tools",
+      "summary": "Block Claude's tools in the desktop iOS Simulator pane.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#disablemobilesimulatortools",
+      "flags": [
+        "managedOnly"
+      ]
+    },
+    {
+      "key": "disableRemoteControl",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Notifications",
+      "summary": "Turn off Remote Control everywhere it can start.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#disableremotecontrol"
+    },
+    {
+      "key": "disableSideloadFlags",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "managed"
+      ],
+      "category": "Enterprise",
+      "summary": "Reject the CLI flags that sideload plugins, subagents, and MCP servers.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#disablesideloadflags",
+      "flags": [
+        "managedOnly"
+      ],
+      "addedIn": "2.1.193"
+    },
+    {
+      "key": "disableSkillShellExecution",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Stop skills and custom commands from running inline shell.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#disableskillshellexecution"
+    },
+    {
+      "key": "disableWorkflows",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Hooks",
+      "summary": "Turn dynamic workflows off for everyone; use enableWorkflows for yourself.",
+      "detail": "Turn off dynamic workflows and the bundled workflow commands for everyone your settings reach, such as an organization through managed settings. To turn workflows on or off just for yourself, use enableWorkflows instead, which the Dynamic workflows toggle in /config writes to your user settings.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#disableworkflows"
+    },
+    {
+      "key": "editorMode",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "normal",
+        "vim"
+      ],
+      "default": "normal",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Use vim key bindings in the input prompt.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#editormode",
+      "concept": "editor.vim"
+    },
+    {
+      "key": "effortLevel",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Set a default effort level for models without a saved level of their own.",
+      "detail": "Set a default effort level for models you haven't saved a level for. Lower levels are faster and cheaper on straightforward tasks, and higher levels reason more deeply on complex problems.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#effortlevel",
+      "concept": "model.effort"
+    },
+    {
+      "key": "emojiCompletionEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Turn off :shortcode: emoji suggestions and replacement in the prompt input.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#emojicompletionenabled"
+    },
+    {
+      "key": "enableAllProjectMcpServers",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "MCP",
+      "summary": "Approve every server in project .mcp.json files without a prompt.",
+      "detail": "Approve every MCP server defined in project .mcp.json files without a prompt. Claude Code writes this key to .claude/settings.local.json when you choose to approve all servers in the approval dialog.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#enableallprojectmcpservers",
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "enableArtifact",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Notifications",
+      "summary": "Turn the Artifact tool off with a false in any file; no file can turn it back on.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#enableartifact",
+      "addedIn": "2.1.196"
+    },
+    {
+      "key": "enabledMcpjsonServers",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "MCP",
+      "summary": "Approve specific servers from a project's .mcp.json.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#enabledmcpjsonservers",
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "enabledPlugins",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Turn individual plugins on or off per scope.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#enabledplugins",
+      "concept": "plugins"
+    },
+    {
+      "key": "enableWorkflows",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Hooks",
+      "summary": "Turn dynamic workflows on or off against your plan's default.",
+      "detail": "Turn dynamic workflows on or off for yourself when your plan's default isn't what you want. Appears in /config as Dynamic workflows, which writes this key to your user settings and removes it again when you toggle back to your plan's default.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#enableworkflows"
+    },
+    {
+      "key": "enforceAvailableModels",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Keep the /model Default choice inside your availableModels allowlist.",
+      "detail": "The /model picker has a Default option that resolves to your organization default model when one applies, and otherwise to your account type's default. An availableModels allowlist limits the models you can name, but on its own it leaves Default alone, so Default can still resolve to a model outside the list.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#enforceavailablemodels",
+      "addedIn": "2.1.175",
+      "concept": "model.default"
+    },
+    {
+      "key": "env",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Other",
+      "summary": "Set environment variables for every session and its subprocesses.",
+      "detail": "Any variable from the environment variables reference can go here, which is how you apply one to a whole team. Values do not go through your shell, so they are not expanded.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#env",
+      "flags": [
+        "sensitive"
+      ]
+    },
+    {
+      "key": "externalEditorContext",
+      "file": ".claude.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user"
+      ],
+      "category": "Interface",
+      "summary": "Show Claude's last response as comments when you press Ctrl+G to edit.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#externaleditorcontext"
+    },
+    {
+      "key": "extraKnownMarketplaces",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Register marketplaces for a repository or an organization.",
+      "detail": "Register additional plugin marketplaces by name, so that people who open the repository, or everyone your managed settings reach, get the marketplace without adding it themselves. Claude Code registers each marketplace it doesn't already know.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#extraknownmarketplaces",
+      "concept": "plugins"
+    },
+    {
+      "key": "fallbackModel",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Name backup models for when the primary is overloaded.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#fallbackmodel",
+      "concept": "model.default"
+    },
+    {
+      "key": "fastMode",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Turn fast mode on for sessions where it's available.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#fastmode"
+    },
+    {
+      "key": "fastModePerSessionOptIn",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Require people to turn fast mode on each session.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#fastmodepersessionoptin"
+    },
+    {
+      "key": "feedbackDrafts",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "notify",
+        "quiet",
+        "off"
+      ],
+      "default": "notify",
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Privacy",
+      "summary": "Control whether Claude queues feedback drafts for you to review.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#feedbackdrafts",
+      "concept": "telemetry"
+    },
+    {
+      "key": "feedbackSurveyRate",
+      "file": "settings.json",
+      "type": "number",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Privacy",
+      "summary": "Change how often the session quality survey appears.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#feedbacksurveyrate",
+      "concept": "telemetry"
+    },
+    {
+      "key": "fileCheckpointingEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Memory & context",
+      "summary": "Turn off or on the file snapshots that /rewind restores.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#filecheckpointingenabled"
+    },
+    {
+      "key": "fileSuggestion",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Supply @ file autocomplete from your own command.",
+      "detail": "Run your own command to supply @ file path autocomplete instead of the built-in file suggestion. The built-in suggestion uses fast filesystem traversal; a large monorepo may do better with project-specific indexing such as a pre-built file index.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#filesuggestion"
+    },
+    {
+      "key": "footerLinksRegexes",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Make issue or review IDs in output into clickable links below the input box.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#footerlinksregexes",
+      "addedIn": "2.1.176"
+    },
+    {
+      "key": "forceLoginGatewayUrl",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Auth & providers",
+      "summary": "Set the gateway URL the login screen connects to.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#forcelogingatewayurl",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "auth.method"
+    },
+    {
+      "key": "forceLoginMethod",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "claudeai",
+        "console",
+        "gateway"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Auth & providers",
+      "summary": "Restrict login to claude.ai, Claude Console, or a cloud gateway.",
+      "detail": "Restrict which kind of account people can log in with. Set \"claudeai\" to allow only claude.ai accounts, \"console\" to allow only Claude Console accounts, or \"gateway\" to send people to a cloud gateway instead of a first-party login.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#forceloginmethod",
+      "concept": "auth.method"
+    },
+    {
+      "key": "forceLoginOrgUUID",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Auth & providers",
+      "summary": "Pin claude.ai logins to your organization; only a managed source enforces it.",
+      "detail": "Only a managed source enforces the restriction. A single UUID in any other settings file just pre-selects that organization during login.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#forceloginorguuid",
+      "concept": "auth.method"
+    },
+    {
+      "key": "forceRemoteSettingsRefresh",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "managed"
+      ],
+      "category": "Enterprise",
+      "summary": "Block startup until server-managed settings are freshly fetched.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#forceremotesettingsrefresh",
+      "flags": [
+        "managedOnly"
+      ]
+    },
+    {
+      "key": "gcpAuthRefresh",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Auth & providers",
+      "summary": "Refresh Google Cloud credentials with your own command.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#gcpauthrefresh",
+      "flags": [
+        "sensitive"
+      ],
+      "concept": "auth.method"
+    },
+    {
+      "key": "hooks",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Hooks",
+      "summary": "Run your own commands as hooks at points in Claude Code's lifecycle.",
+      "detail": "Run your own commands, prompts, agents, HTTP requests, or MCP tools at points in Claude Code's lifecycle, such as before a tool call or when a session starts. Hooks merge across settings files, and hooks from managed settings cannot be removed elsewhere.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#hooks",
+      "concept": "hooks"
+    },
+    {
+      "key": "httpHookAllowedEnvVars",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Hooks",
+      "summary": "Limit which env vars HTTP hooks can put in headers.",
+      "detail": "An HTTP hook can put the value of an environment variable into a request header, for example an Authorization: Bearer $HOOK_TOKEN header, but only for variables the hook lists in its own allowedEnvVars.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#httphookallowedenvvars",
+      "concept": "hooks"
+    },
+    {
+      "key": "includeCoAuthoredBy",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Git",
+      "summary": "Deprecated; use attribution to hide or change commit and PR attribution.",
+      "detail": "Replaced by attribution in v2.0.62. A false here still suppresses both the commit trailer and the PR attribution line unless attribution sets its own text.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#includecoauthoredby",
+      "flags": [
+        "deprecated"
+      ],
+      "concept": "attribution"
+    },
+    {
+      "key": "includeGitInstructions",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Git",
+      "summary": "Remove the built-in commit and PR instructions from the system prompt.",
+      "detail": "At session start, Claude Code adds two git-related pieces to Claude's prompt: its built-in instructions for how to write commits and pull requests, in the Bash tool's description, and a git status snapshot of your repository in the system prompt, meaning the current branch, the main branch, git status output, and recent commits.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#includegitinstructions",
+      "concept": "instructions.file"
+    },
+    {
+      "key": "inputNeededNotifEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Notifications",
+      "summary": "Get a push notification when Claude is waiting on you.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#inputneedednotifenabled",
+      "concept": "notifications"
+    },
+    {
+      "key": "isolatePeerMachines",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Agents & sessions",
+      "summary": "Ask you before Claude messages one of your sessions on another machine.",
+      "detail": "Require your explicit approval before Claude's SendMessage reaches one of your sessions on another machine. The approval prompt appears even in bypassPermissions mode.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#isolatepeermachines"
+    },
+    {
+      "key": "keybindingFlavor",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "classic",
+        "readline"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Deprecated and has no effect; word-editing keys always follow readline conventions.",
+      "detail": "Deprecated since v2.1.261. Claude Code still parses the key, so an old settings file stays valid, but the value is ignored.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#keybindingflavor",
+      "flags": [
+        "deprecated"
+      ]
+    },
+    {
+      "key": "language",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Have Claude respond in a language other than English.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#language",
+      "concept": "persona"
+    },
+    {
+      "key": "managedMcpServers",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "managed"
+      ],
+      "category": "MCP",
+      "summary": "Provide remote MCP servers to every user alongside the ones they add.",
+      "detail": "Provide remote MCP servers to every user from managed settings. Users keep the servers they add themselves and can't edit or remove the ones you provide. Requires Claude Code v2.1.259 or later.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#managedmcpservers",
+      "flags": [
+        "managedOnly"
+      ],
+      "addedIn": "2.1.259",
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "managedSourcesBehavior",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "first-wins",
+        "merge"
+      ],
+      "default": "first-wins",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Enterprise",
+      "summary": "Compose every managed source you deploy instead of using the highest-priority one alone.",
+      "detail": "Choose whether Claude Code applies only the highest-priority managed source your organization delivers, or combines every admin source it delivers. By default Claude Code takes the highest-priority source that carries a policy key and ignores the rest.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#managedsourcesbehavior",
+      "flags": [
+        "managedOnly"
+      ],
+      "addedIn": "2.1.242"
+    },
+    {
+      "key": "maxEffortLevel",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Cap the effort level for every model or per model, on every provider.",
+      "detail": "Cap the effort level a session can use, leaving lower levels available. Any higher level runs at the cap instead, including one from /effort, the /model picker, --effort, CLAUDE_CODE_EFFORT_LEVEL, a skill's or subagent's effort frontmatter, or the model's own default.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#maxeffortlevel",
+      "addedIn": "2.1.267",
+      "concept": "model.effort"
+    },
+    {
+      "key": "minimumVersion",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Updates",
+      "summary": "Keep auto-updates from installing anything below a version.",
+      "detail": "Keep background auto-updates and claude update from installing any version below this one, so moving to the \"stable\" channel doesn't downgrade you from a newer \"latest\" build.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#minimumversion",
+      "flags": [
+        "volatile"
+      ],
+      "concept": "updates"
+    },
+    {
+      "key": "model",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Change the model Claude Code starts with.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#model",
+      "concept": "model.default"
+    },
+    {
+      "key": "modelOverrides",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Map model IDs to your provider's IDs, such as Bedrock ARNs.",
+      "detail": "Map Anthropic model IDs to provider-specific model IDs, such as Amazon Bedrock inference profile ARNs. Each model picker entry then uses its mapped value when calling the provider API.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#modeloverrides",
+      "concept": "model.provider"
+    },
+    {
+      "key": "modelPicker",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Choose which models the /model picker lists, in your own order and with your own labels.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#modelpicker",
+      "addedIn": "2.1.242",
+      "concept": "model.default"
+    },
+    {
+      "key": "modelPricing",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Report spend at your organization's contracted rates instead of list price.",
+      "detail": "Report spend at the rates your organization pays instead of list price. Set it when your organization has contracted rates, so the dollar figures developers see match your bill.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#modelpricing",
+      "flags": [
+        "managedOnly"
+      ],
+      "addedIn": "2.1.242",
+      "concept": "model.provider"
+    },
+    {
+      "key": "modelSettings",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Keep a saved effort level per model, or cap one model's effort.",
+      "detail": "Save an effort level for each model you use. In an interactive session on your machine, when you save low, medium, high, or xhigh as your default with /effort or the /model picker's effort slider, Claude Code writes that level here under the model you're using, so you rarely edit this key yourself.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#modelsettings",
+      "flags": [
+        "volatile"
+      ],
+      "addedIn": "2.1.251",
+      "concept": "model.effort"
+    },
+    {
+      "key": "otelHeadersHelper",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Auth & providers",
+      "summary": "Generate rotating OpenTelemetry headers with your own command.",
+      "detail": "Run your own command to generate the headers Claude Code sends with OpenTelemetry exports, for backends whose tokens rotate. Claude Code runs it at startup and periodically after that, and expects a JSON object of string header values on stdout.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#otelheadershelper",
+      "flags": [
+        "sensitive"
+      ],
+      "concept": "telemetry"
+    },
+    {
+      "key": "outputStyle",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Change Claude's role, tone, and output format with an output style.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#outputstyle",
+      "concept": "persona"
+    },
+    {
+      "key": "parentSettingsBehavior",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "first-wins",
+        "merge"
+      ],
+      "default": "first-wins",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Enterprise",
+      "summary": "Apply or drop restrictions an SDK or IDE host passes when you deploy managed settings.",
+      "detail": "Choose whether Claude Code applies managed settings supplied by an embedding host process, such as the Agent SDK or an IDE extension, when an admin-deployed managed tier is also present.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#parentsettingsbehavior",
+      "flags": [
+        "managedOnly"
+      ]
+    },
+    {
+      "key": "permissionExplainerEnabled",
+      "file": ".claude.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user"
+      ],
+      "category": "Permissions",
+      "summary": "Removed in v2.1.257 along with the Ctrl+E command explanation on shell permission prompts.",
+      "detail": "Lived in ~/.claude.json on v2.1.256 and earlier. Setting it on a current version does nothing.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#permissionexplainerenabled",
+      "flags": [
+        "removed"
+      ],
+      "removedIn": "2.1.257"
+    },
+    {
+      "key": "permissions",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Permissions",
+      "summary": "Set allow, ask, and deny rules and the starting permission mode.",
+      "detail": "Every permissions.* key nests under this object. Rules in allow, ask, and deny merge across settings layers instead of replacing each other.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#permissions",
+      "concept": "permissions.rules"
+    },
+    {
+      "key": "permissions.additionalDirectories",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Permissions",
+      "summary": "Give Claude file access to directories outside the current one.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#permissions-additionaldirectories",
+      "concept": "sandbox.filesystem"
+    },
+    {
+      "key": "permissions.allow",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Permissions",
+      "summary": "Approve listed tool uses without a prompt.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#permissions-allow",
+      "concept": "permissions.rules"
+    },
+    {
+      "key": "permissions.ask",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Permissions",
+      "summary": "Always prompt before listed tool uses.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#permissions-ask",
+      "concept": "permissions.rules"
+    },
+    {
+      "key": "permissions.blockReadsOutsideWorkingDirectories",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Permissions",
+      "summary": "Make the file tools refuse reads outside the working directories in every permission mode.",
+      "detail": "Stop Claude from reading paths outside the session's working directories with the Read, Grep, Glob, and LSP tools, in every permission mode including bypassPermissions. A Bash command that reads a matching path through a file command Claude Code recognizes, such as cat, prompts you even in auto mode and bypassPermissions mode.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#permissions-blockreadsoutsideworkingdirectories",
+      "addedIn": "2.1.257",
+      "concept": "sandbox.filesystem"
+    },
+    {
+      "key": "permissions.defaultMode",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "default",
+        "acceptEdits",
+        "plan",
+        "auto",
+        "dontAsk",
+        "bypassPermissions",
+        "manual"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Permissions",
+      "summary": "Set the permission mode new sessions start in.",
+      "detail": "Set the permission mode new sessions start in. When you leave it unset, sessions start in the built-in default for your plan and surface.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#permissions-defaultmode",
+      "concept": "permissions.mode"
+    },
+    {
+      "key": "permissions.deny",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Permissions",
+      "summary": "Block listed tool uses, including reads of files that hold secrets.",
+      "detail": "List the tool uses Claude Code blocks. Use it for files that hold API keys, secrets, or environment values: Claude Code excludes matching files from file discovery and search results, denies reads of them, and blocks the Edit and Write tools on the matching paths.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#permissions-deny",
+      "concept": "permissions.rules"
+    },
+    {
+      "key": "permissions.disableBypassPermissionsMode",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "disable"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Permissions",
+      "summary": "Prevent anyone from entering bypassPermissions mode.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#permissions-disablebypasspermissionsmode",
+      "concept": "permissions.mode"
+    },
+    {
+      "key": "plansDirectory",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Memory & context",
+      "summary": "Choose where plan mode writes plan files.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#plansdirectory"
+    },
+    {
+      "key": "pluginConfigs",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Store the answers you gave a plugin's configuration dialog.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#pluginconfigs",
+      "flags": [
+        "volatile"
+      ],
+      "concept": "plugins"
+    },
+    {
+      "key": "pluginSuggestionMarketplaces",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Choose which marketplaces can surface plugin install suggestions in /plugin.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#pluginsuggestionmarketplaces",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "plugins"
+    },
+    {
+      "key": "pluginTrustMessage",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Add your own text to the plugin trust warning.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#plugintrustmessage",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "plugins"
+    },
+    {
+      "key": "policyHelper",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Enterprise",
+      "summary": "Run an executable that computes managed settings at startup.",
+      "detail": "Run an executable you deploy that computes managed settings at startup, so you can derive policy from device posture, identity, or a remote service instead of a static file. Claude Code runs the helper before it accepts the first prompt and treats the settings it emits as the managed settings for the session.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#policyhelper",
+      "flags": [
+        "managedOnly"
+      ]
+    },
+    {
+      "key": "policyHelper.path",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Enterprise",
+      "summary": "Name the helper executable Claude Code runs.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#policyhelper-path",
+      "flags": [
+        "managedOnly"
+      ]
+    },
+    {
+      "key": "policyHelper.refreshIntervalMs",
+      "file": "settings.json",
+      "type": "number",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Enterprise",
+      "summary": "Re-run the helper in the background on an interval.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#policyhelper-refreshintervalms",
+      "flags": [
+        "managedOnly"
+      ]
+    },
+    {
+      "key": "policyHelper.timeoutMs",
+      "file": "settings.json",
+      "type": "number",
+      "default": 10000,
+      "scopes": [
+        "managed"
+      ],
+      "category": "Enterprise",
+      "summary": "Set how long Claude Code waits for the helper.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#policyhelper-timeoutms",
+      "flags": [
+        "managedOnly"
+      ]
+    },
+    {
+      "key": "preferredNotifChannel",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "auto",
+        "iterm2",
+        "iterm2_with_bell",
+        "kitty",
+        "ghostty",
+        "terminal_bell",
+        "notifications_disabled"
+      ],
+      "default": "auto",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Notifications",
+      "summary": "Choose a terminal bell or desktop notification for task completion.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#preferrednotifchannel",
+      "concept": "notifications"
+    },
+    {
+      "key": "prefersReducedMotion",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Reduce or turn off spinner, shimmer, and flash animations.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#prefersreducedmotion"
+    },
+    {
+      "key": "processWrapper",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Agents & sessions",
+      "summary": "Run Claude Code's background processes through a corporate launcher on macOS and Linux.",
+      "detail": "On macOS and Linux, place a corporate launcher command in front of the background processes Claude Code starts. Claude Code appends its own command line, so the launcher must exec into Claude Code.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#processwrapper",
+      "addedIn": "2.1.210"
+    },
+    {
+      "key": "promptCacheTtl",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "5m",
+        "1h"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Choose the prompt cache lifetime for the main conversation.",
+      "detail": "Choose how long the prompt cache holds the main conversation. This key applies to your interactive, -p, and Agent SDK turns, together with the helpers Claude Code runs inline with them.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#promptcachettl",
+      "addedIn": "2.1.242"
+    },
+    {
+      "key": "promptSuggestionEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Hide the grayed-out prompt suggestions in the input box.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#promptsuggestionenabled"
+    },
+    {
+      "key": "prUrlTemplate",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Git",
+      "summary": "Point PR links at an internal code-review tool instead of github.com.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#prurltemplate",
+      "concept": "attribution"
+    },
+    {
+      "key": "remote.defaultEnvironmentId",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Notifications",
+      "summary": "Pick the default cloud environment for sessions started with claude --cloud.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#remote-defaultenvironmentid"
+    },
+    {
+      "key": "remoteControlAtStartup",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Notifications",
+      "summary": "Connect Remote Control automatically when a session starts.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#remotecontrolatstartup"
+    },
+    {
+      "key": "requiredMaximumVersion",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Updates",
+      "summary": "Refuse to start on a version newer than your organization allows.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#requiredmaximumversion",
+      "flags": [
+        "managedOnly"
+      ],
+      "addedIn": "2.1.163",
+      "concept": "updates"
+    },
+    {
+      "key": "requiredMinimumVersion",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Updates",
+      "summary": "Refuse to start on a version older than your organization requires.",
+      "detail": "Set the oldest Claude Code version your organization allows to start. When the running version is older, Claude Code exits at startup and tells the user to update through your organization's approved method.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#requiredminimumversion",
+      "flags": [
+        "managedOnly"
+      ],
+      "addedIn": "2.1.163",
+      "concept": "updates"
+    },
+    {
+      "key": "respectGitignore",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Keep gitignored files out of the @ file picker.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#respectgitignore"
+    },
+    {
+      "key": "respondToBashCommands",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Stop Claude from responding after a ! shell command runs.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#respondtobashcommands",
+      "addedIn": "2.1.186"
+    },
+    {
+      "key": "sandbox",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Isolate Bash commands from your filesystem and network on macOS, Linux, and WSL2.",
+      "detail": "Isolate the Bash commands Claude runs from your filesystem and network with sandboxing. Turn the sandbox on with enabled, then narrow or widen what sandboxed commands can touch with the filesystem, network, and credentials sub-objects.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox",
+      "concept": "sandbox.mode"
+    },
+    {
+      "key": "sandbox.allowAppleEvents",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Let sandboxed commands send Apple Events on macOS.",
+      "detail": "Let sandboxed commands on macOS send Apple Events, which open, osascript, and tools that open URLs in a browser need; without it they fail with error -600.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-allowappleevents"
+    },
+    {
+      "key": "sandbox.allowUnsandboxedCommands",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Let Claude retry a blocked command outside the sandbox, or forbid it.",
+      "detail": "Let Claude retry a command outside the sandbox with the dangerouslyDisableSandbox parameter after the sandbox blocks it. Set it to false so Claude Code ignores that parameter completely and every command Claude runs must be sandboxed or appear in excludedCommands.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-allowunsandboxedcommands"
+    },
+    {
+      "key": "sandbox.autoAllowBashIfSandboxed",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Run sandboxed commands without a permission prompt.",
+      "detail": "Let Claude Code run sandboxed Bash commands without a permission prompt. Commands that can't run in the sandbox still go through the regular permission flow, and deny rules and content-scoped ask rules such as Bash(git push *) still apply; a bare Bash ask rule is skipped for sandboxed commands.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-autoallowbashifsandboxed"
+    },
+    {
+      "key": "sandbox.bwrapPath",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Point the sandbox at a bubblewrap binary outside PATH.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-bwrappath",
+      "flags": [
+        "managedOnly"
+      ]
+    },
+    {
+      "key": "sandbox.credentials",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Hide or mask credential files and variables inside the sandbox.",
+      "detail": "Declare the credential files and environment variables to protect from sandboxed commands. Each entry names a file path or a variable name and a mode: deny hides the credential inside the sandbox, and mask shows sandboxed commands a placeholder while the sandbox proxy substitutes the real value on outbound requests.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-credentials",
+      "flags": [
+        "sensitive"
+      ],
+      "addedIn": "2.1.187"
+    },
+    {
+      "key": "sandbox.credentials.allowPlaintextInject",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Let masked credentials reach plain HTTP services on trusted test networks.",
+      "detail": "Allow mask substitution on plain HTTP requests as well as TLS-terminated HTTPS. On plain HTTP the upstream identity is unverified and the credential travels in cleartext, so leave this off outside trusted test networks.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-credentials-allowplaintextinject",
+      "flags": [
+        "experimental"
+      ],
+      "addedIn": "2.1.199"
+    },
+    {
+      "key": "sandbox.credentials.awsPairs",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Link custom-named AWS key variables into one credential for re-signing.",
+      "detail": "Group masked environment variables that form one AWS credential for SigV4 re-signing, for credentials held in variables with non-standard names. The conventional AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and AWS_SESSION_TOKEN trio is linked automatically.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-credentials-awspairs",
+      "flags": [
+        "sensitive"
+      ],
+      "addedIn": "2.1.224"
+    },
+    {
+      "key": "sandbox.credentials.envVars",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Unset or mask an environment variable inside the sandbox.",
+      "detail": "Each entry names a variable and a mode. \"deny\" removes the variable from a sandboxed command's environment; \"mask\" shows a per-session sentinel value while the sandbox proxy substitutes the real one on outbound requests.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-credentials-envvars",
+      "flags": [
+        "sensitive"
+      ],
+      "addedIn": "2.1.187"
+    },
+    {
+      "key": "sandbox.credentials.files",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Block or mask reads of a credential file inside the sandbox.",
+      "detail": "Each entry names a path and a mode. \"deny\" blocks reads of the path inside the sandbox; \"mask\" shows sandboxed commands a sentinel file while the sandbox proxy substitutes the real value on outbound requests.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-credentials-files",
+      "flags": [
+        "sensitive"
+      ],
+      "addedIn": "2.1.187"
+    },
+    {
+      "key": "sandbox.credentials.sigv4",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Choose whether streaming, presigned, or SigV4A AWS requests fail or pass through.",
+      "detail": "Choose what the sandbox proxy does with AWS request forms it can't re-sign: streaming for aws-chunked streaming uploads, presigned for presigned URLs, and sigv4a for SigV4A asymmetric signatures. This applies only to requests signed with a masked pair's placeholder access key ID.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-credentials-sigv4",
+      "flags": [
+        "sensitive"
+      ],
+      "addedIn": "2.1.224"
+    },
+    {
+      "key": "sandbox.enabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Turn on Bash sandboxing on macOS, Linux, and WSL2.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-enabled",
+      "concept": "sandbox.mode"
+    },
+    {
+      "key": "sandbox.enableWeakerNestedSandbox",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Run the Linux sandbox inside an unprivileged container.",
+      "detail": "Run the Linux sandbox inside an unprivileged Docker container, where bubblewrap can't mount a fresh /proc. Instead the inner sandbox bind-mounts the container's existing /proc, which exposes process information that a fresh mount would hide.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-enableweakernestedsandbox",
+      "flags": [
+        "experimental"
+      ]
+    },
+    {
+      "key": "sandbox.enableWeakerNetworkIsolation",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Let gh, gcloud, and terraform verify TLS behind a MITM proxy inside the sandbox on macOS.",
+      "detail": "Let sandboxed commands on macOS reach the system TLS trust service, com.apple.trustd.agent. Go-based tools such as gh, gcloud, and terraform need it to verify TLS certificates when you use network.httpProxyPort with a MITM proxy and a custom CA.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-enableweakernetworkisolation",
+      "flags": [
+        "experimental"
+      ]
+    },
+    {
+      "key": "sandbox.excludedCommands",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Name commands that always run outside the sandbox.",
+      "detail": "Name commands that Claude Code always runs outside the sandbox, such as tools that don't work under it. Each entry uses the same syntax as the content of a Bash(...) permission rule: an exact command, a prefix such as docker *, or a wildcard pattern.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-excludedcommands"
+    },
+    {
+      "key": "sandbox.failIfUnavailable",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Refuse to start when the sandbox can't, instead of running unsandboxed.",
+      "detail": "Make Claude Code exit with an error at startup when sandbox.enabled is true but the sandbox can't start, because a dependency is missing or the platform is unsupported. Without it, Claude Code shows a warning and runs commands unsandboxed.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-failifunavailable",
+      "concept": "sandbox.mode"
+    },
+    {
+      "key": "sandbox.filesystem",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Control which paths sandboxed commands can read and write.",
+      "detail": "Control which paths sandboxed commands can read and write. By default they can write to the working directory, the session temp directory, and directories you add with --add-dir, /add-dir, or permissions.additionalDirectories, and can read the rest of the filesystem, including credential files.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-filesystem",
+      "concept": "sandbox.filesystem"
+    },
+    {
+      "key": "sandbox.filesystem.allowManagedReadPathsOnly",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Stop developers from re-opening read paths your organization blocked.",
+      "detail": "Honor only the allowRead entries that come from managed settings, so developers can't re-open read access to paths your organization blocked. Claude Code still merges denyRead entries from every settings scope the session loads.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-filesystem-allowmanagedreadpathsonly",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "sandbox.filesystem"
+    },
+    {
+      "key": "sandbox.filesystem.allowRead",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Re-open reading inside a region denyRead blocks.",
+      "detail": "Re-open reading for specific paths inside a region that denyRead blocks, to build workspace-only read access. An exact or wildcard denyRead entry stays blocked inside a broader allowRead.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-filesystem-allowread",
+      "concept": "sandbox.filesystem"
+    },
+    {
+      "key": "sandbox.filesystem.allowWrite",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Add paths sandboxed commands can write to.",
+      "detail": "Add paths where sandboxed commands can write, beyond the working directory, the session temp directory, and the directories you've added with --add-dir, /add-dir, or permissions.additionalDirectories. Use it when a subprocess such as kubectl or a build tool needs to write outside the project.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-filesystem-allowwrite",
+      "concept": "sandbox.filesystem"
+    },
+    {
+      "key": "sandbox.filesystem.denyRead",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Block sandboxed commands from reading specific paths.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-filesystem-denyread",
+      "concept": "sandbox.filesystem"
+    },
+    {
+      "key": "sandbox.filesystem.denyWrite",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Block sandboxed commands from writing to specific paths.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-filesystem-denywrite",
+      "concept": "sandbox.filesystem"
+    },
+    {
+      "key": "sandbox.filesystem.disabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Turn off filesystem isolation while keeping network isolation.",
+      "detail": "Skip filesystem isolation while keeping network isolation. Sandboxed commands get unrestricted read and write access to the host filesystem, and their network egress stays confined to network.allowedDomains.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-filesystem-disabled",
+      "addedIn": "2.1.216",
+      "concept": "sandbox.filesystem"
+    },
+    {
+      "key": "sandbox.ignoreViolations",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Silence violation reports for paths a command is expected to probe.",
+      "detail": "Silence sandbox violation reports for paths you expect a command to probe and be refused, such as a tool that checks /etc/hosts on startup, so those denials don't show up as violations or in what Claude sees.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-ignoreviolations"
+    },
+    {
+      "key": "sandbox.network",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Control which hosts, ports, and sockets sandboxed commands reach.",
+      "detail": "Control which hosts, ports, and sockets sandboxed commands can reach. The sandbox routes outbound traffic through a proxy that enforces these lists and prompts on a host it has not seen.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-network",
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "sandbox.network.allowAllUnixSockets",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Let sandboxed commands connect to every Unix socket.",
+      "detail": "Let sandboxed commands connect to every Unix socket. On Linux and WSL2, the sandbox's seccomp filter blocks socket(AF_UNIX, ...) calls, so this is the only way to permit Unix sockets there. When the filter is missing, which /sandbox reports on its Dependencies tab, the sandbox doesn't block Unix-socket calls.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-network-allowallunixsockets",
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "sandbox.network.allowedDomains",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Pre-allow domains so sandboxed commands don't prompt for them.",
+      "detail": "Pre-allow domains for outbound traffic from sandboxed commands, so the sandbox doesn't prompt for them. Wildcards such as *.example.com match subdomains, and an optional :port suffix limits an entry to one port; an entry without a port matches every port.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-network-alloweddomains",
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "sandbox.network.allowLocalBinding",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Let sandboxed commands bind to localhost ports on macOS.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-network-allowlocalbinding",
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "sandbox.network.allowMachLookup",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Let macOS sandboxed tools like the iOS Simulator or Playwright reach their XPC services.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-network-allowmachlookup",
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "sandbox.network.allowManagedDomainsOnly",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Lock the network allowlist to managed settings.",
+      "detail": "Lock the network allowlist to what managed settings define. Claude Code then honors only allowedDomains and WebFetch(domain:...) allow rules from managed settings, ignores domains from user, project, local, and --settings settings, and blocks a non-allowed domain automatically instead of prompting.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-network-allowmanageddomainsonly",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "sandbox.network.allowUnixSockets",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "List Unix socket paths sandboxed commands can use on macOS.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-network-allowunixsockets",
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "sandbox.network.deniedDomains",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Block domains for sandboxed commands, even inside an allowed wildcard.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-network-denieddomains",
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "sandbox.network.httpProxyPort",
+      "file": "settings.json",
+      "type": "number",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Route sandbox HTTP traffic through your own proxy.",
+      "detail": "Point the sandbox at your own HTTP proxy instead of the one Claude Code runs. Organizations do this to inspect HTTPS traffic, apply their own filtering rules, or log every request. When unset, Claude Code starts its own proxy for HTTP traffic.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-network-httpproxyport",
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "sandbox.network.socksProxyPort",
+      "file": "settings.json",
+      "type": "number",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Route sandbox SOCKS traffic through your own proxy.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-network-socksproxyport",
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "sandbox.network.strictAllowlist",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Deny hosts outside the allowlist instead of prompting.",
+      "detail": "Deny sandboxed commands access to hosts outside the allowlist instead of prompting for approval. The allowlist is allowedDomains plus domains from WebFetch(domain:...) allow rules, or only the managed settings entries when allowManagedDomainsOnly is set.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-network-strictallowlist",
+      "addedIn": "2.1.219",
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "sandbox.network.tlsTerminate",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Have the sandbox proxy terminate TLS so it can read HTTPS requests.",
+      "detail": "Make the sandbox proxy terminate TLS so it can read the contents of HTTPS requests. This is experimental, and mask credential substitution requires it. Set {} to generate an ephemeral certificate authority for the session, or set caCertPath and caKeyPath to use your own.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-network-tlsterminate",
+      "flags": [
+        "experimental"
+      ],
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "sandbox.ripgrep",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Use your own ripgrep binary inside the sandbox.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-ripgrep"
+    },
+    {
+      "key": "sandbox.socatPath",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Sandbox",
+      "summary": "Point the sandbox proxy at a socat binary outside PATH.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sandbox-socatpath",
+      "flags": [
+        "managedOnly"
+      ]
+    },
+    {
+      "key": "showClearContextOnPlanAccept",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Show a \"clear context\" option on the plan accept screen.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#showclearcontextonplanaccept"
+    },
+    {
+      "key": "showThinkingSummaries",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "See summaries of Claude's thinking instead of a collapsed stub.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#showthinkingsummaries"
+    },
+    {
+      "key": "showTurnDuration",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Hide the \"Cooked for\" duration after each response.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#showturnduration"
+    },
+    {
+      "key": "skillListingBudgetFraction",
+      "file": "settings.json",
+      "type": "number",
+      "default": 0.01,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Reserve more or less context for the skill listing.",
+      "detail": "Each turn, Claude sees a listing of your skills with their descriptions, and Claude Code caps that listing at a share of the context window.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#skilllistingbudgetfraction",
+      "concept": "skills.budget"
+    },
+    {
+      "key": "skillListingMaxDescChars",
+      "file": "settings.json",
+      "type": "number",
+      "default": 1536,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Cap each skill's description length in the skill listing.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#skilllistingmaxdescchars",
+      "concept": "skills.budget"
+    },
+    {
+      "key": "skillOverrides",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Hide or collapse a skill without editing its SKILL.md.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#skilloverrides",
+      "concept": "skills.dir"
+    },
+    {
+      "key": "skipAutoPermissionPrompt",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Permissions",
+      "summary": "Skip the one-time notice shown the first time you enter auto mode yourself.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#skipautopermissionprompt"
+    },
+    {
+      "key": "skipDangerousModePermissionPrompt",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "local",
+        "managed"
+      ],
+      "category": "Permissions",
+      "summary": "Skip the confirmation dialog before bypassPermissions mode.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#skipdangerousmodepermissionprompt"
+    },
+    {
+      "key": "skipWebFetchPreflight",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Privacy",
+      "summary": "Skip the WebFetch hostname check when Anthropic is unreachable.",
+      "detail": "Skip the WebFetch domain safety check, which sends each requested hostname to api.anthropic.com before fetching. Set true in environments that block traffic to Anthropic, such as Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry deployments with restrictive egress.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#skipwebfetchpreflight",
+      "concept": "web_search"
+    },
+    {
+      "key": "spellcheck",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Underline misspelled words in the prompt input with a spell checker you install.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#spellcheck",
+      "addedIn": "2.1.235"
+    },
+    {
+      "key": "spinnerTipsEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Hide tips in the spinner while Claude works.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#spinnertipsenabled"
+    },
+    {
+      "key": "spinnerTipsOverride",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Add your own tips to the spinner rotation, or replace the built-in tips.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#spinnertipsoverride"
+    },
+    {
+      "key": "spinnerVerbs",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Add or replace the verbs shown while a turn runs.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#spinnerverbs"
+    },
+    {
+      "key": "sshConfigs",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Auth & providers",
+      "summary": "Add SSH connections to the Desktop environment dropdown.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sshconfigs"
+    },
+    {
+      "key": "sshHostAllowlist",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Enterprise",
+      "summary": "Limit which hosts Desktop SSH sessions can reach.",
+      "detail": "Limit the hosts a Desktop SSH session can connect to. Only the Desktop app reads this key; the CLI doesn't. Patterns are case-insensitive: * matches any host, *.example.com matches example.com and every subdomain, and anything else is an exact match against the hostname after ~/.ssh/config resolution.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#sshhostallowlist",
+      "flags": [
+        "managedOnly"
+      ]
+    },
+    {
+      "key": "statusLine",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Run your own command to render a status line below the prompt.",
+      "detail": "Run your own command to render a status line below the prompt with context such as the model, cost, or git branch. Optional fields adjust spacing, add periodic re-runs, and hide the built-in vim mode indicator when your script renders vim.mode itself.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#statusline"
+    },
+    {
+      "key": "strictKnownMarketplaces",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Allowlist the marketplace sources users can add and install from.",
+      "detail": "Restrict which plugin marketplace sources people in your organization can add and install plugins from.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#strictknownmarketplaces",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "plugins"
+    },
+    {
+      "key": "strictPluginOnlyCustomization",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Block skills, agents, hooks, and MCP servers from user and project sources.",
+      "detail": "Block skills, agents, hooks, and MCP servers from user and project sources, so they can come only from plugins or managed settings. Combine it with strictKnownMarketplaces to control the full customization supply chain: the marketplace allowlist controls which plugins users can install.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#strictpluginonlycustomization",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "plugins"
+    },
+    {
+      "key": "strictPluginOnlyCustomization.agents",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Lock agents to plugin and managed sources.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#strictpluginonlycustomization-agents",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "plugins"
+    },
+    {
+      "key": "strictPluginOnlyCustomization.hooks",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Lock hooks to plugin and managed sources.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#strictpluginonlycustomization-hooks",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "hooks"
+    },
+    {
+      "key": "strictPluginOnlyCustomization.mcp",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Lock MCP servers to plugin and managed sources.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#strictpluginonlycustomization-mcp",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "strictPluginOnlyCustomization.skills",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Lock skills to plugin and managed sources.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#strictpluginonlycustomization-skills",
+      "flags": [
+        "managedOnly"
+      ],
+      "concept": "skills.dir"
+    },
+    {
+      "key": "subagentPromptCacheTtl",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "5m",
+        "1h"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Choose the prompt cache lifetime for subagents and other requests outside the main conversation.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#subagentpromptcachettl",
+      "addedIn": "2.1.242"
+    },
+    {
+      "key": "subagentStatusLine",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Rewrite rows in the subagent task display with your own command.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#subagentstatusline"
+    },
+    {
+      "key": "switchModelsOnFlag",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Switch models automatically or pause when a safety classifier flags a request.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#switchmodelsonflag"
+    },
+    {
+      "key": "syncClaudeAiSkills",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "local",
+        "managed"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Stop downloading the skills enabled on your claude.ai account and hide the ones already synced.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#syncclaudeaiskills",
+      "concept": "skills.dir"
+    },
+    {
+      "key": "syntaxHighlightingDisabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Turn off syntax highlighting in diffs and code blocks.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#syntaxhighlightingdisabled"
+    },
+    {
+      "key": "taskOutputMaxChars",
+      "file": "settings.json",
+      "type": "number",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Memory & context",
+      "summary": "Set how much of a background task's output Claude receives inline.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#taskoutputmaxchars",
+      "addedIn": "2.1.261"
+    },
+    {
+      "key": "teammateDefaultModel",
+      "file": ".claude.json",
+      "type": "string",
+      "scopes": [
+        "user"
+      ],
+      "category": "Model",
+      "summary": "Removed in v2.1.234; Claude Code now picks a teammate's model on its own.",
+      "detail": "Lived in ~/.claude.json on v2.1.233 and earlier, alongside a Default teammate model row in /config. Both are gone.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#teammatedefaultmodel",
+      "flags": [
+        "removed"
+      ],
+      "removedIn": "2.1.234",
+      "concept": "model.default"
+    },
+    {
+      "key": "teammateMode",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "in-process",
+        "auto",
+        "tmux",
+        "iterm2"
+      ],
+      "default": "in-process",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Agents & sessions",
+      "summary": "Choose how agent team teammates display.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#teammatemode"
+    },
+    {
+      "key": "terminalProgressBarEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Hide the terminal progress bar in terminals that support it.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#terminalprogressbarenabled"
+    },
+    {
+      "key": "terminalTitleFromRename",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Stop /rename and --name from changing the terminal tab title.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#terminaltitlefromrename"
+    },
+    {
+      "key": "theme",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "auto",
+        "dark",
+        "light",
+        "dark-daltonized",
+        "light-daltonized",
+        "dark-ansi",
+        "light-ansi"
+      ],
+      "default": "dark",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Pick the interface color theme, built-in or custom.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#theme",
+      "concept": "theme"
+    },
+    {
+      "key": "timeFormat",
+      "file": "settings.json",
+      "type": "string",
+      "default": "auto",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Show the times in the interface on a 12-hour or 24-hour clock, in UTC, or with a strftime pattern.",
+      "detail": "Accepts the presets \"auto\", \"12-hour\", \"24-hour\", and \"24-hour-utc\", or a strftime pattern such as \"%H:%M\". /config sets the presets.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#timeformat",
+      "addedIn": "2.1.257"
+    },
+    {
+      "key": "timeZone",
+      "file": "settings.json",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Show the times in the interface in a time zone other than your system's.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#timezone",
+      "addedIn": "2.1.257"
+    },
+    {
+      "key": "tui",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "default",
+        "fullscreen"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Choose the fullscreen or classic terminal renderer.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#tui"
+    },
+    {
+      "key": "ultracode",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Model",
+      "summary": "Have Claude plan a workflow for each substantive task without being asked.",
+      "detail": "Start sessions with ultracode on. With it on, Claude plans a workflow for each substantive task instead of waiting for you to ask. Claude plans workflows only when dynamic workflows are enabled for you, your model supports xhigh effort, and no effort cap below xhigh applies.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#ultracode",
+      "flags": [
+        "experimental"
+      ]
+    },
+    {
+      "key": "useAutoModeDuringPlan",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "local",
+        "managed"
+      ],
+      "category": "Permissions",
+      "summary": "Let the auto mode classifier review shell commands in plan mode; set false to get prompts instead.",
+      "detail": "Choose whether Claude Code uses the auto mode classifier to review shell commands in plan mode. With the default true, the classifier reviews each command during planning when auto mode is available and you see no prompt.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#useautomodeduringplan",
+      "concept": "permissions.mode"
+    },
+    {
+      "key": "verbose",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Show full tool output instead of truncated summaries; viewMode takes precedence when both are set.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#verbose"
+    },
+    {
+      "key": "viewMode",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "default",
+        "verbose",
+        "focus"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Start every session in default, verbose, or focus view.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#viewmode"
+    },
+    {
+      "key": "vimInsertModeRemaps",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Map a two-key INSERT-mode sequence such as jj to Escape.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#viminsertmoderemaps",
+      "addedIn": "2.1.208",
+      "concept": "editor.vim"
+    },
+    {
+      "key": "voice",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Turn on voice dictation and pick hold or tap mode.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#voice"
+    },
+    {
+      "key": "voiceEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Deprecated single-key form of voice dictation; set voice.enabled instead.",
+      "detail": "Deprecated since v2.1.92, when the voice object replaced it. Still read so older settings files keep working.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#voiceenabled",
+      "flags": [
+        "deprecated"
+      ]
+    },
+    {
+      "key": "wheelScrollAccelerationEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Interface",
+      "summary": "Turn off mouse-wheel acceleration in fullscreen rendering.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#wheelscrollaccelerationenabled",
+      "addedIn": "2.1.174"
+    },
+    {
+      "key": "workflowKeywordTriggerEnabled",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Hooks",
+      "summary": "Let the word ultracode in a prompt start a workflow; set false to type it without starting one.",
+      "detail": "Choose whether typing the keyword ultracode in a prompt triggers a dynamic workflow. Set it to false to type the word without triggering one.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#workflowkeywordtriggerenabled"
+    },
+    {
+      "key": "workflowSizeGuideline",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "unrestricted",
+        "small",
+        "medium",
+        "large"
+      ],
+      "default": "medium",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Hooks",
+      "summary": "Set the agent count Claude aims for in dynamic workflows.",
+      "detail": "Set the agent count Claude aims for in the dynamic workflows it writes. Claude Code sends the value to Claude as advice, not an enforced cap: \"small\" asks for fewer than 5 agents, \"medium\" fewer than 15, and \"large\" fewer than 50.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#workflowsizeguideline",
+      "addedIn": "2.1.219"
+    },
+    {
+      "key": "worktree",
+      "file": "settings.json",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Agents & sessions",
+      "summary": "Configure how Claude Code creates git worktrees.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#worktree"
+    },
+    {
+      "key": "worktree.baseRef",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "fresh",
+        "head"
+      ],
+      "default": "fresh",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Agents & sessions",
+      "summary": "Branch new worktrees from the remote default branch or your local HEAD.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#worktree-baseref"
+    },
+    {
+      "key": "worktree.bgIsolation",
+      "file": "settings.json",
+      "type": "enum",
+      "enumValues": [
+        "worktree",
+        "none"
+      ],
+      "default": "worktree",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Agents & sessions",
+      "summary": "Let background sessions edit the working copy without a worktree.",
+      "detail": "Choose how background sessions isolate their file edits. With \"worktree\", Claude Code blocks Edit and Write in the main checkout until the session calls EnterWorktree; with \"none\", background jobs edit the working copy directly.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#worktree-bgisolation"
+    },
+    {
+      "key": "worktree.sparsePaths",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Agents & sessions",
+      "summary": "Check out only the directories you need in each worktree.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#worktree-sparsepaths"
+    },
+    {
+      "key": "worktree.symlinkDirectories",
+      "file": "settings.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "local",
+        "managed"
+      ],
+      "category": "Agents & sessions",
+      "summary": "Symlink large directories into each worktree instead of duplicating them.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#worktree-symlinkdirectories"
+    },
+    {
+      "key": "wslInheritsWindowsSettings",
+      "file": "settings.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "managed"
+      ],
+      "category": "Enterprise",
+      "summary": "Have WSL read managed settings from the Windows policy chain.",
+      "detail": "Have Claude Code on WSL read managed settings from the Windows policy chain, with HKLM and the Windows managed settings file taking priority over /etc/claude-code and HKCU below it.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#wslinheritswindowssettings",
+      "flags": [
+        "managedOnly"
+      ]
+    },
+    {
+      "key": "$schema",
+      "file": "keybindings.json",
+      "type": "string",
+      "scopes": [
+        "user"
+      ],
+      "category": "Interface",
+      "summary": "JSON Schema URL for editor autocompletion of the keybindings file.",
+      "docsUrl": "https://code.claude.com/docs/en/keybindings#configuration-file"
+    },
+    {
+      "key": "$docs",
+      "file": "keybindings.json",
+      "type": "string",
+      "scopes": [
+        "user"
+      ],
+      "category": "Interface",
+      "summary": "Documentation URL recorded in the keybindings file.",
+      "docsUrl": "https://code.claude.com/docs/en/keybindings#configuration-file"
+    },
+    {
+      "key": "bindings",
+      "file": "keybindings.json",
+      "type": "array",
+      "scopes": [
+        "user"
+      ],
+      "category": "Interface",
+      "summary": "Blocks of keyboard shortcuts, each scoped to one context.",
+      "detail": "Claude Code reloads the file without a restart. Each block pairs a context with a map of keystrokes to actions.",
+      "docsUrl": "https://code.claude.com/docs/en/keybindings#configuration-file"
+    },
+    {
+      "key": "bindings.<index>.context",
+      "file": "keybindings.json",
+      "type": "enum",
+      "enumValues": [
+        "Global",
+        "Chat",
+        "Autocomplete",
+        "Settings",
+        "Confirmation",
+        "Tabs",
+        "Help",
+        "Transcript",
+        "HistorySearch",
+        "Task",
+        "ThemePicker",
+        "Attachments",
+        "Footer",
+        "MessageSelector",
+        "DiffDialog",
+        "DiffPanel",
+        "ModelPicker",
+        "EffortSlider",
+        "Select",
+        "Plugin",
+        "Agents",
+        "Scroll"
+      ],
+      "scopes": [
+        "user"
+      ],
+      "category": "Interface",
+      "summary": "Where a block of bindings applies, such as Global, Chat, or Transcript.",
+      "docsUrl": "https://code.claude.com/docs/en/keybindings#contexts"
+    },
+    {
+      "key": "bindings.<index>.bindings.<keystroke>",
+      "file": "keybindings.json",
+      "type": "string",
+      "scopes": [
+        "user"
+      ],
+      "category": "Interface",
+      "summary": "Action a keystroke runs, in namespace:action form, or null to unbind it.",
+      "detail": "Keystrokes look like \"ctrl+e\" or a chord such as \"ctrl+k ctrl+s\". Setting an action to null removes the default binding.",
+      "docsUrl": "https://code.claude.com/docs/en/keybindings#available-actions"
+    }
+  ],
+  "paths": [
+    {
+      "path": "<project>/CLAUDE.md",
+      "kind": "instructions",
+      "scope": "project",
+      "editable": true,
+      "summary": "Project instructions loaded into every session started in this repository.",
+      "docsUrl": "https://code.claude.com/docs/en/memory"
+    },
+    {
+      "path": "<project>/CLAUDE.local.md",
+      "kind": "instructions",
+      "scope": "project",
+      "editable": true,
+      "summary": "Your private project instructions, loaded alongside CLAUDE.md and normally gitignored.",
+      "docsUrl": "https://code.claude.com/docs/en/memory"
+    },
+    {
+      "path": "<project>/.mcp.json",
+      "kind": "mcp",
+      "scope": "project",
+      "editable": true,
+      "summary": "Team-shared MCP servers for this repository, at the repo root rather than under .claude/.",
+      "docsUrl": "https://code.claude.com/docs/en/mcp#mcp-installation-scopes"
+    },
+    {
+      "path": "<project>/.worktreeinclude",
+      "kind": "settings",
+      "scope": "project",
+      "editable": true,
+      "summary": "Gitignored files to copy into each new worktree, one glob per line.",
+      "docsUrl": "https://code.claude.com/docs/en/worktrees#copy-gitignored-files-into-worktrees"
+    },
+    {
+      "path": "<project>/.claude/settings.json",
+      "kind": "settings",
+      "scope": "project",
+      "editable": true,
+      "summary": "Settings shared with everyone who checks out the repository.",
+      "docsUrl": "https://code.claude.com/docs/en/settings#where-settings-live"
+    },
+    {
+      "path": "<project>/.claude/settings.local.json",
+      "kind": "settings",
+      "scope": "project",
+      "editable": true,
+      "summary": "Your personal settings overrides for this project, gitignored when Claude Code writes to it.",
+      "docsUrl": "https://code.claude.com/docs/en/settings#where-settings-live"
+    },
+    {
+      "path": "<project>/.claude/rules/",
+      "kind": "rules",
+      "scope": "project",
+      "editable": true,
+      "summary": "Topic-scoped instruction files for this repository, optionally gated to matching paths.",
+      "docsUrl": "https://code.claude.com/docs/en/memory"
+    },
+    {
+      "path": "<project>/.claude/skills/",
+      "kind": "skills",
+      "scope": "project",
+      "editable": true,
+      "summary": "Project skills, one directory per skill with a SKILL.md entrypoint.",
+      "docsUrl": "https://code.claude.com/docs/en/skills"
+    },
+    {
+      "path": "<project>/.claude/commands/",
+      "kind": "commands",
+      "scope": "project",
+      "editable": true,
+      "summary": "Single-file project commands invoked with /name; skills supersede this mechanism.",
+      "docsUrl": "https://code.claude.com/docs/en/skills"
+    },
+    {
+      "path": "<project>/.claude/output-styles/",
+      "kind": "outputStyles",
+      "scope": "project",
+      "editable": true,
+      "summary": "Project output styles that change Claude's role, tone, and response format.",
+      "docsUrl": "https://code.claude.com/docs/en/output-styles"
+    },
+    {
+      "path": "<project>/.claude/agents/",
+      "kind": "agents",
+      "scope": "project",
+      "editable": true,
+      "summary": "Subagent definitions for this repository, each with its own prompt, tools, and model.",
+      "docsUrl": "https://code.claude.com/docs/en/sub-agents"
+    },
+    {
+      "path": "<project>/.claude/workflows/",
+      "kind": "workflows",
+      "scope": "project",
+      "editable": true,
+      "summary": "Dynamic workflow scripts that orchestrate subagents; each file becomes a /name command.",
+      "docsUrl": "https://code.claude.com/docs/en/workflows"
+    },
+    {
+      "path": "<project>/.claude/agent-memory/",
+      "kind": "memory",
+      "scope": "project",
+      "editable": false,
+      "summary": "Per-subagent persistent memory for this repository, written by the subagents themselves.",
+      "docsUrl": "https://code.claude.com/docs/en/sub-agents#enable-persistent-memory"
+    },
+    {
+      "path": "~/settings.json",
+      "kind": "settings",
+      "scope": "user",
+      "editable": true,
+      "summary": "Your default settings for every project.",
+      "docsUrl": "https://code.claude.com/docs/en/settings#where-settings-live"
+    },
+    {
+      "path": "~/CLAUDE.md",
+      "kind": "instructions",
+      "scope": "user",
+      "editable": true,
+      "summary": "Your personal instructions, loaded in every project.",
+      "docsUrl": "https://code.claude.com/docs/en/memory"
+    },
+    {
+      "path": "~/rules/",
+      "kind": "rules",
+      "scope": "user",
+      "editable": true,
+      "summary": "User-level topic-scoped instruction files, loaded in every project.",
+      "docsUrl": "https://code.claude.com/docs/en/memory"
+    },
+    {
+      "path": "~/skills/",
+      "kind": "skills",
+      "scope": "user",
+      "editable": true,
+      "summary": "Personal skills available in every project, one directory per skill with a SKILL.md entrypoint.",
+      "docsUrl": "https://code.claude.com/docs/en/skills"
+    },
+    {
+      "path": "~/skills/synced/",
+      "kind": "skills",
+      "scope": "user",
+      "editable": false,
+      "summary": "Skills downloaded from the account you enabled them on at claude.ai; managed by Claude Code.",
+      "docsUrl": "https://code.claude.com/docs/en/skills"
+    },
+    {
+      "path": "~/commands/",
+      "kind": "commands",
+      "scope": "user",
+      "editable": true,
+      "summary": "Personal single-file commands invoked with /name; skills supersede this mechanism.",
+      "docsUrl": "https://code.claude.com/docs/en/skills"
+    },
+    {
+      "path": "~/output-styles/",
+      "kind": "outputStyles",
+      "scope": "user",
+      "editable": true,
+      "summary": "Personal output styles that change Claude's role, tone, and response format.",
+      "docsUrl": "https://code.claude.com/docs/en/output-styles"
+    },
+    {
+      "path": "~/agents/",
+      "kind": "agents",
+      "scope": "user",
+      "editable": true,
+      "summary": "Personal subagent definitions, available in every project.",
+      "docsUrl": "https://code.claude.com/docs/en/sub-agents"
+    },
+    {
+      "path": "~/workflows/",
+      "kind": "workflows",
+      "scope": "user",
+      "editable": true,
+      "summary": "Personal dynamic workflow scripts; each file becomes a /name command.",
+      "docsUrl": "https://code.claude.com/docs/en/workflows"
+    },
+    {
+      "path": "~/keybindings.json",
+      "kind": "keybindings",
+      "scope": "user",
+      "editable": true,
+      "summary": "Custom keyboard shortcuts, reloaded without restarting Claude Code.",
+      "docsUrl": "https://code.claude.com/docs/en/keybindings"
+    },
+    {
+      "path": "~/themes/",
+      "kind": "themes",
+      "scope": "user",
+      "editable": true,
+      "summary": "Custom color themes, one JSON file per theme.",
+      "docsUrl": "https://code.claude.com/docs/en/terminal-config#create-a-custom-theme"
+    },
+    {
+      "path": "~/plugins/",
+      "kind": "plugins",
+      "scope": "user",
+      "editable": false,
+      "summary": "Installed plugins, cloned marketplaces, and per-plugin data, managed by the claude plugin commands.",
+      "docsUrl": "https://code.claude.com/docs/en/plugins-reference#plugin-caching-and-file-resolution"
+    },
+    {
+      "path": "~/plugins/installed_plugins.json",
+      "kind": "plugins",
+      "scope": "user",
+      "editable": false,
+      "summary": "Record of which plugin versions are installed, written by claude plugin.",
+      "docsUrl": "https://code.claude.com/docs/en/plugins-reference"
+    },
+    {
+      "path": "~/plugins/known_marketplaces.json",
+      "kind": "plugins",
+      "scope": "user",
+      "editable": false,
+      "summary": "Marketplaces Claude Code knows about, written when you add or refresh one.",
+      "docsUrl": "https://code.claude.com/docs/en/plugin-marketplaces"
+    },
+    {
+      "path": "~/plugins/blocklist.json",
+      "kind": "plugins",
+      "scope": "user",
+      "editable": false,
+      "summary": "Plugin and marketplace sources Claude Code refuses to load on this machine.",
+      "docsUrl": "https://code.claude.com/docs/en/plugin-marketplaces"
+    },
+    {
+      "path": "~/plugins/marketplaces/",
+      "kind": "plugins",
+      "scope": "user",
+      "editable": false,
+      "summary": "Cloned marketplace repositories backing the plugins you installed.",
+      "docsUrl": "https://code.claude.com/docs/en/plugin-marketplaces"
+    },
+    {
+      "path": "~/plugins/cache/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Downloaded plugin payloads kept for reinstall and update checks."
+    },
+    {
+      "path": "~/plugins/data/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Per-plugin data directories that plugins write at runtime."
+    },
+    {
+      "path": "~/agent-memory/",
+      "kind": "memory",
+      "scope": "user",
+      "editable": false,
+      "summary": "Persistent memory for your personal subagents, written by the subagents themselves.",
+      "docsUrl": "https://code.claude.com/docs/en/sub-agents#enable-persistent-memory"
+    },
+    {
+      "path": "~/projects/<project>/memory/MEMORY.md",
+      "kind": "memory",
+      "scope": "user",
+      "editable": false,
+      "summary": "Auto memory: notes Claude keeps for a project across sessions.",
+      "docsUrl": "https://code.claude.com/docs/en/memory#auto-memory"
+    },
+    {
+      "path": "/etc/claude-code/managed-settings.json",
+      "kind": "settings",
+      "scope": "user",
+      "editable": false,
+      "summary": "Enterprise settings deployed by your organization; the location varies by operating system.",
+      "docsUrl": "https://code.claude.com/docs/en/managed-settings#deploy-a-managed-settings-file"
+    },
+    {
+      "path": "~/../.claude.json",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "App state and UI preferences at ~/.claude.json, including OAuth state, project trust, and personal MCP servers.",
+      "docsUrl": "https://code.claude.com/docs/en/settings-reference#global-config-settings"
+    },
+    {
+      "path": "~/projects/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Session transcripts, subagent transcripts, and spilled tool results, one directory per project.",
+      "docsUrl": "https://code.claude.com/docs/en/claude-directory#application-data"
+    },
+    {
+      "path": "~/sessions/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "One small file per running session, used to detect concurrent sessions and crashes.",
+      "docsUrl": "https://code.claude.com/docs/en/claude-directory#application-data"
+    },
+    {
+      "path": "~/shell-snapshots/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Shell aliases, functions, and options captured at startup and replayed for each Bash command.",
+      "docsUrl": "https://code.claude.com/docs/en/claude-directory#application-data"
+    },
+    {
+      "path": "~/file-history/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Pre-edit file snapshots that /rewind restores.",
+      "docsUrl": "https://code.claude.com/docs/en/checkpointing"
+    },
+    {
+      "path": "~/paste-cache/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Contents of large pastes.",
+      "docsUrl": "https://code.claude.com/docs/en/claude-directory#application-data"
+    },
+    {
+      "path": "~/image-cache/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Images attached to sessions.",
+      "docsUrl": "https://code.claude.com/docs/en/claude-directory#application-data"
+    },
+    {
+      "path": "~/uploads/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Files attached from the web or mobile app when messaging a Remote Control session.",
+      "docsUrl": "https://code.claude.com/docs/en/claude-directory#application-data"
+    },
+    {
+      "path": "~/cache/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Cached data Claude Code refreshes in the background, such as the changelog.",
+      "docsUrl": "https://code.claude.com/docs/en/claude-directory#application-data"
+    },
+    {
+      "path": "~/jobs/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Background session state.",
+      "docsUrl": "https://code.claude.com/docs/en/agent-view#where-state-is-stored"
+    },
+    {
+      "path": "~/daemon/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Background daemon state for agent view and background sessions.",
+      "docsUrl": "https://code.claude.com/docs/en/agent-view#where-state-is-stored"
+    },
+    {
+      "path": "~/tasks/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Task lists written by the task tools, one directory per list.",
+      "docsUrl": "https://code.claude.com/docs/en/claude-directory#application-data"
+    },
+    {
+      "path": "~/backups/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Rotating copies of ~/.claude.json taken before Claude Code rewrites it.",
+      "docsUrl": "https://code.claude.com/docs/en/claude-directory#application-data"
+    },
+    {
+      "path": "~/downloads/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Files Claude Code downloaded during sessions."
+    },
+    {
+      "path": "~/session-env/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Per-session environment metadata.",
+      "docsUrl": "https://code.claude.com/docs/en/claude-directory#application-data"
+    },
+    {
+      "path": "~/plans/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Plan files written in plan mode, unless plansDirectory moves them.",
+      "docsUrl": "https://code.claude.com/docs/en/permission-modes#analyze-before-you-edit-with-plan-mode"
+    },
+    {
+      "path": "~/history.jsonl",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Every prompt you have typed, with timestamp and project path, used for recall and Ctrl+R search.",
+      "docsUrl": "https://code.claude.com/docs/en/claude-directory#application-data"
+    },
+    {
+      "path": "~/stats-cache.json",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Aggregated token and cost counts shown by /usage.",
+      "docsUrl": "https://code.claude.com/docs/en/claude-directory#application-data"
+    },
+    {
+      "path": "~/policy-limits.json",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Cached feature policy for your organization, deleted when you log out.",
+      "docsUrl": "https://code.claude.com/docs/en/claude-directory#application-data"
+    },
+    {
+      "path": "~/remote-settings.json",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Cached copy of server-managed settings, refreshed at startup and hourly.",
+      "docsUrl": "https://code.claude.com/docs/en/server-managed-settings"
+    },
+    {
+      "path": "~/gh-pr-status-cache.json",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Cached GitHub pull request status shown in the footer."
+    },
+    {
+      "path": "~/usage-data/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Reports and cached analysis data behind /insights.",
+      "docsUrl": "https://code.claude.com/docs/en/costs#analyze-your-usage-patterns"
+    },
+    {
+      "path": "~/feedback/drafts/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Claude-drafted feedback waiting for your review in /feedback.",
+      "docsUrl": "https://code.claude.com/docs/en/claude-directory#application-data"
+    },
+    {
+      "path": "~/feedback-bundles/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Redacted transcript archives written by /feedback for your Anthropic account team.",
+      "docsUrl": "https://code.claude.com/docs/en/claude-directory#application-data"
+    },
+    {
+      "path": "~/debug/",
+      "kind": "logs",
+      "scope": "user",
+      "editable": false,
+      "summary": "Per-session debug logs, written while debug logging is on.",
+      "docsUrl": "https://code.claude.com/docs/en/claude-directory#application-data"
+    },
+    {
+      "path": "~/logs/",
+      "kind": "logs",
+      "scope": "user",
+      "editable": false,
+      "summary": "Legacy log directory from older versions; no longer written.",
+      "docsUrl": "https://code.claude.com/docs/en/claude-directory#application-data"
+    },
+    {
+      "path": "~/.credentials.json",
+      "kind": "credential",
+      "scope": "user",
+      "editable": false,
+      "summary": "Your login credentials. Never read this file.",
+      "docsUrl": "https://code.claude.com/docs/en/authentication#credential-management"
+    },
+    {
+      "path": "~/daemon/control.key",
+      "kind": "credential",
+      "scope": "user",
+      "editable": false,
+      "summary": "Control key for the background daemon. Never read this file.",
+      "docsUrl": "https://code.claude.com/docs/en/agent-view#where-state-is-stored"
+    },
+    {
+      "path": "~/daemon/auth/",
+      "kind": "credential",
+      "scope": "user",
+      "editable": false,
+      "summary": "Authentication material for the background daemon. Never read this directory.",
+      "docsUrl": "https://code.claude.com/docs/en/agent-view#where-state-is-stored"
+    }
+  ]
+}

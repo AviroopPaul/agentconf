@@ -1,0 +1,3017 @@
+{
+  "agent": "codex",
+  "displayName": "Codex CLI",
+  "vendor": "OpenAI",
+  "packVersion": "2026.09.14",
+  "sources": [
+    "https://learn.chatgpt.com/docs/config-file/config-reference",
+    "https://learn.chatgpt.com/docs/config-file/config-basic",
+    "https://learn.chatgpt.com/docs/config-file/config-advanced",
+    "https://learn.chatgpt.com/docs/config-file/config-sample"
+  ],
+  "keys": [
+    {
+      "key": "agents",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Agents & sessions",
+      "summary": "Multi-agent settings and custom subagent role declarations.",
+      "detail": "Scalar setting names in this table are reserved and cannot be used as custom role names.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#agent-roles-agents-in-configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "agents.<name>",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Agents & sessions",
+      "summary": "Declaration of one custom subagent role.",
+      "detail": "Holds description, the role guidance Codex reads when choosing an agent type, and config_file. Sibling scalar keys such as enabled and default_subagent_model are reserved names.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#agent-roles-agents-in-configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "agents.<name>.config_file",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Agents & sessions",
+      "summary": "Path to a TOML config layer applied when this role runs.",
+      "detail": "Relative paths resolve from the config file that declares the role.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#agent-roles-agents-in-configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "agents.enabled",
+      "file": "config.toml",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Agents & sessions",
+      "summary": "Enable the multi-agent tools.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#agent-roles-agents-in-configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "allow_login_shell",
+      "file": "config.toml",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Allow shell tools to run commands in a login shell.",
+      "detail": "When false, login = true requests are rejected and an omitted login flag means a non-login shell.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "analytics",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Privacy",
+      "summary": "Analytics settings for this machine or profile.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#metrics",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "telemetry"
+    },
+    {
+      "key": "analytics.enabled",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Privacy",
+      "summary": "Send analytics from this machine or profile.",
+      "detail": "When unset, the client default applies.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#metrics",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "telemetry"
+    },
+    {
+      "key": "approval_policy",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "on-request",
+        "never"
+      ],
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Permissions",
+      "summary": "When Codex pauses to ask for approval before acting.",
+      "detail": "Project config cannot set this. It also accepts a granular table form. untrusted is unsupported and on-failure is deprecated.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#approval-policies-and-sandbox-modes",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "permissions.mode"
+    },
+    {
+      "key": "approval_policy.granular",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Permissions",
+      "summary": "Table form of approval_policy that allows or auto-rejects individual prompt categories.",
+      "detail": "Fields are sandbox_approval, rules, mcp_elicitations, request_permissions and skill_approval. Each is a boolean: true lets that prompt category surface, false auto-rejects it.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#approval-policies-and-sandbox-modes",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "permissions.mode"
+    },
+    {
+      "key": "approvals_reviewer",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "user",
+        "auto_review"
+      ],
+      "default": "user",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Permissions",
+      "summary": "Who reviews eligible approval prompts.",
+      "detail": "auto_review hands the prompt to the reviewer subagent. It does not change sandboxing or widen what the sandbox already allows.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#approval-policies-and-sandbox-modes",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "permissions.mode"
+    },
+    {
+      "key": "apps.<id>",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Settings for one app or connector, keyed by app id.",
+      "detail": "Same fields as apps._default, plus tools.<tool>.enabled and tools.<tool>.approval_mode for a single tool.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "apps.<id>.enabled",
+      "file": "config.toml",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Enable or disable one app or connector.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "apps._default",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Default settings applied to every app and connector.",
+      "detail": "Accepts enabled, default_tools_enabled, default_tools_approval_mode, approvals_reviewer, destructive_enabled and open_world_enabled. Any apps.<id> entry overrides these.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "auto_review",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Projects",
+      "summary": "Automatic review settings.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "auto_review.policy",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Projects",
+      "summary": "Markdown policy instructions used for automatic review.",
+      "detail": "A managed guardian_policy_config takes precedence. Blank values are ignored.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "background_terminal_max_timeout",
+      "file": "config.toml",
+      "type": "number",
+      "default": 300000,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Maximum poll window in milliseconds for empty background terminal reads.",
+      "detail": "Replaces the older background_terminal_timeout key.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "browser_use",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Restrictions on agent-driven browser use.",
+      "detail": "default_origin_policy sets the fallback and browser_use.origins.<origin> overrides it per origin, each with access, uploads, downloads and full_cdp_access set to allow or deny.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "browser_use.allow_history_access",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Allow browser use to read browser history.",
+      "detail": "Managed requirements can force this off and local config cannot relax it.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "chatgpt_base_url",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Auth & providers",
+      "summary": "Base URL used during the ChatGPT login flow.",
+      "detail": "Project config cannot set this.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "check_for_update_on_startup",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Updates",
+      "summary": "Check for Codex updates at startup.",
+      "detail": "Set false only when updates are managed centrally.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "updates"
+    },
+    {
+      "key": "cli_auth_credentials_store",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "file",
+        "keyring",
+        "auto",
+        "ephemeral"
+      ],
+      "default": "auto",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Auth & providers",
+      "summary": "Where the CLI caches its credentials.",
+      "detail": "file uses $CODEX_HOME/auth.json, keyring uses the OS credential store, auto falls back to the file, and ephemeral keeps credentials in memory only.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "auth.method"
+    },
+    {
+      "key": "compact_prompt",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Memory & context",
+      "summary": "Inline override for the history compaction prompt.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "compaction"
+    },
+    {
+      "key": "computer_use.default_app_access",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "allow",
+        "deny"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Fallback access policy for native apps under computer use.",
+      "detail": "Local configuration cannot relax managed restrictions.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "computer_use.macos",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Computer use app rules for macOS.",
+      "detail": "bundle_ids maps an exact macOS bundle identifier to allow or deny, replacing computer_use.default_app_access for that app.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "computer_use.windows",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Computer use app rules for Windows.",
+      "detail": "aumids covers packaged apps, exes covers signed unpackaged executables, and always_allowed_app_ids lists apps that skip prompting.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "default_permissions",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Permissions",
+      "summary": "Name of the permission profile applied to sandboxed tool calls.",
+      "detail": "Built-ins are :read-only, :workspace and :danger-full-access. Custom names need a matching [permissions.<name>] table. Do not combine with sandbox_mode or [sandbox_workspace_write].",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#named-permission-profiles",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "permissions.mode"
+    },
+    {
+      "key": "desktop",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Interface",
+      "summary": "ChatGPT desktop app settings.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#add-custom-file-handlers",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "desktop.custom_file_handlers.<id>",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Interface",
+      "summary": "An extra Open in target for the desktop app.",
+      "detail": "User level only. command, label and icon are required. args, input, which is path, json_argument or json_stdin, and supports_ssh are optional.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#add-custom-file-handlers",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "desktop.custom_file_handlers.<id>.command",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Interface",
+      "summary": "Executable path or command name the handler launches.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#add-custom-file-handlers",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "developer_instructions",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Memory & context",
+      "summary": "Extra developer instructions injected into the session.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "instructions.file"
+    },
+    {
+      "key": "disable_paste_burst",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Interface",
+      "summary": "Disable burst-paste detection in the TUI.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#tui-options",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "experimental_compact_prompt_file",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Memory & context",
+      "summary": "Path to a file holding the compaction prompt override.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "flags": [
+        "experimental"
+      ],
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "compaction"
+    },
+    {
+      "key": "features",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Other",
+      "summary": "Feature flags for optional and in-development behavior.",
+      "detail": "Flags marked under development can change or disappear between releases. codex --enable <flag> sets one for a single run.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-basic#feature-flags",
+      "flags": [
+        "experimental"
+      ],
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "features.<flag>",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Other",
+      "summary": "Turn one named feature flag on or off.",
+      "detail": "Use the canonical flag names from the configuration reference. Unknown names are ignored.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-basic#feature-flags",
+      "flags": [
+        "experimental"
+      ],
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "features.context_management.experimental_mode",
+      "file": "config.toml",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Memory & context",
+      "summary": "Use notes and searchable history instead of repeated summary compression.",
+      "detail": "Requires ChatGPT sign-in on Plus, Pro or Pro Lite.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-basic#feature-flags",
+      "flags": [
+        "experimental"
+      ],
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "compaction"
+    },
+    {
+      "key": "features.hooks",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Hooks",
+      "summary": "Enable lifecycle hooks from hooks.json or inline [hooks].",
+      "detail": "features.codex_hooks is a deprecated alias.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-basic#feature-flags",
+      "flags": [
+        "experimental"
+      ],
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "hooks"
+    },
+    {
+      "key": "features.memories",
+      "file": "config.toml",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Memory & context",
+      "summary": "Enable the Memories feature.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-basic#feature-flags",
+      "flags": [
+        "experimental"
+      ],
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "memory"
+    },
+    {
+      "key": "features.multi_agent",
+      "file": "config.toml",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Agents & sessions",
+      "summary": "Enable the multi-agent tools spawn_agent, send_input, resume_agent, wait_agent and close_agent.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-basic#feature-flags",
+      "flags": [
+        "experimental"
+      ],
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "features.network_proxy",
+      "file": "config.toml",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Sandbox",
+      "summary": "Start the network proxy that enforces domain rules for sandboxed commands.",
+      "detail": "Off by default. Without it, permission profile domain rules are not enforced and command network access is direct. Accepts a table when you need to set proxy options. Does not filter web search, apps or MCP traffic.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-basic#feature-flags",
+      "flags": [
+        "experimental"
+      ],
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "features.network_proxy.domains",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Sandbox",
+      "summary": "Domain policy for sandboxed command networking, keyed by host pattern with allow or deny.",
+      "detail": "Unset means nothing outbound is allowed. Supports *.example.com, **.example.com and a global *. Deny wins on conflict.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-basic#feature-flags",
+      "flags": [
+        "experimental"
+      ],
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "features.web_search",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Deprecated toggle for the web search tool.",
+      "detail": "Use the top-level web_search setting instead. When web_search is unset, features.web_search_cached maps to cached and features.web_search_request maps to live.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-basic#feature-flags",
+      "flags": [
+        "experimental",
+        "deprecated"
+      ],
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "web_search"
+    },
+    {
+      "key": "feedback",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Privacy",
+      "summary": "Feedback submission settings.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#feedback-controls",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "feedback.enabled",
+      "file": "config.toml",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Privacy",
+      "summary": "Allow feedback submission through /feedback.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#feedback-controls",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "file_opener",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "vscode",
+        "vscode-insiders",
+        "windsurf",
+        "cursor",
+        "none"
+      ],
+      "default": "vscode",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Interface",
+      "summary": "URI scheme used to open file citations from Codex output.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#clickable-citations",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "forced_chatgpt_workspace_id",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Auth & providers",
+      "summary": "Limit ChatGPT logins to one workspace id.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "auth.method"
+    },
+    {
+      "key": "forced_login_method",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "chatgpt",
+        "api"
+      ],
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Auth & providers",
+      "summary": "Restrict Codex to one authentication method.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "auth.method"
+    },
+    {
+      "key": "hide_agent_reasoning",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Interface",
+      "summary": "Suppress reasoning events in the TUI and in codex exec output.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#hide-or-surface-reasoning-events",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "history",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Privacy",
+      "summary": "Session transcript history settings.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#history-persistence",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "history"
+    },
+    {
+      "key": "history.max_bytes",
+      "file": "config.toml",
+      "type": "number",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Privacy",
+      "summary": "Cap on the history file size in bytes, dropping oldest entries.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#history-persistence",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "history"
+    },
+    {
+      "key": "history.persistence",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "save-all",
+        "none"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Privacy",
+      "summary": "Whether session transcripts are written to history.jsonl.",
+      "detail": "Set none to stop writing local transcripts. It does not delete an existing history.jsonl.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#history-persistence",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "history"
+    },
+    {
+      "key": "hooks",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Hooks",
+      "summary": "Lifecycle hooks declared inline in config.toml.",
+      "detail": "Hooks can live in config.toml or in a hooks.json next to it. If one layer has both, Codex loads both and warns. Requires features.hooks.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#hooks",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.<Event>",
+      "file": "hooks.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Hooks",
+      "summary": "Matcher groups for one hook event.",
+      "detail": "Events include PreToolUse, PermissionRequest, PostToolUse, PreCompact, PostCompact, SessionStart, SessionEnd, SubagentStart, SubagentStop, UserPromptSubmit, Stop and Interrupt.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#hooks",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.<Event>[].hooks",
+      "file": "hooks.json",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Hooks",
+      "summary": "Handlers run for one matcher group.",
+      "detail": "Command and MCP tool handlers run. Prompt and agent handlers are parsed and skipped.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#hooks",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.<Event>[].hooks[].additionalContextLimit",
+      "file": "hooks.json",
+      "type": "number",
+      "default": 2500,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Hooks",
+      "summary": "Token threshold above which oversized hook context is written to disk and previewed.",
+      "detail": "Set 0 to pass the full context straight to the model.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#hooks",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "hooks"
+    },
+    {
+      "key": "hooks.<Event>[].hooks[].async",
+      "file": "hooks.json",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Hooks",
+      "summary": "Run a command handler in the background instead of blocking the triggering operation.",
+      "detail": "SessionEnd always runs synchronously regardless of this setting.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#hooks",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "hooks"
+    },
+    {
+      "key": "instructions",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Memory & context",
+      "summary": "Reserved for future use.",
+      "detail": "Codex does not read this today. Use model_instructions_file or AGENTS.md instead.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "instructions.file"
+    },
+    {
+      "key": "log_dir",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Other",
+      "summary": "Directory Codex writes log files to.",
+      "detail": "Defaults to $CODEX_HOME/log. Setting it explicitly also enables the plaintext TUI log codex-tui.log there.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "marketplaces.<name>.source",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Git repository URL or local directory for a plugin marketplace.",
+      "detail": "A local source must be an absolute path containing .agents/plugins/marketplace.json. A git source also accepts ref and sparse_paths.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "plugins"
+    },
+    {
+      "key": "marketplaces.<name>.source_type",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "git",
+        "local"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Kind of marketplace source.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "plugins"
+    },
+    {
+      "key": "mcp_oauth_callback_url",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "MCP",
+      "summary": "Base callback URL for MCP OAuth login, such as a devbox ingress URL.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#mcp-servers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "mcp_oauth_credentials_store",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "auto",
+        "file",
+        "keyring"
+      ],
+      "default": "auto",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "MCP",
+      "summary": "Where MCP OAuth credentials are stored.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#mcp-servers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "mcp_servers.<id>",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "MCP",
+      "summary": "Definition of one MCP server, keyed by the name Codex shows for its tools.",
+      "detail": "Set command for a stdio server or url for a streamable HTTP server, not both. startup_timeout_sec defaults to 10 and tool_timeout_sec to 60.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#mcp-servers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "mcp_servers.<id>.args",
+      "file": "config.toml",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "MCP",
+      "summary": "Arguments passed to the stdio MCP server command.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#mcp-servers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "mcp_servers.<id>.auth",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "oauth",
+        "chatgpt"
+      ],
+      "default": "oauth",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "MCP",
+      "summary": "Authentication fallback used after configured tokens and headers.",
+      "detail": "chatgpt reuses the current ChatGPT session for the trusted first-party origin, then falls back to stored OAuth credentials.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#mcp-servers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "mcp_servers.<id>.command",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "MCP",
+      "summary": "Launcher command for a stdio MCP server.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#mcp-servers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "mcp_servers.<id>.enabled",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "MCP",
+      "summary": "Turn one MCP server off without deleting its configuration.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#mcp-servers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "mcp_servers.<id>.enabled_tools",
+      "file": "config.toml",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "MCP",
+      "summary": "Allow list of tool names exposed by the server.",
+      "detail": "disabled_tools is applied after this list.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#mcp-servers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "mcp_servers.<id>.env",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "MCP",
+      "summary": "Environment variables forwarded to the stdio MCP server.",
+      "detail": "Values are stored in plain text in config.toml, so prefer bearer_token_env_var or env_vars for secrets.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#mcp-servers",
+      "flags": [
+        "sensitive"
+      ],
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "mcp_servers.<id>.oauth",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "MCP",
+      "summary": "OAuth client settings for one MCP server.",
+      "detail": "Holds client_id for a pre-registered client, plus callback_url and callback_port, which override mcp_oauth_callback_url and mcp_oauth_callback_port for this server.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#mcp-servers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "mcp_servers.<id>.tools.<tool>",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "MCP",
+      "summary": "Per-tool overrides for one tool on this MCP server.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#mcp-servers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "mcp_servers.<id>.tools.<tool>.approval_mode",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "auto",
+        "prompt",
+        "writes",
+        "approve"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "MCP",
+      "summary": "Approval behavior for one MCP tool.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#mcp-servers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "mcp_servers.<id>.url",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "MCP",
+      "summary": "Endpoint for a streamable HTTP MCP server.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#mcp-servers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "mcp.servers"
+    },
+    {
+      "key": "memories",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Memory & context",
+      "summary": "Settings for the Memories feature.",
+      "detail": "Requires features.memories, which is off by default. Generated memories are written to ~/.codex/memories/. Extra keys tune extraction models, thread age and rate limit thresholds.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "memory"
+    },
+    {
+      "key": "memories.generate_memories",
+      "file": "config.toml",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Memory & context",
+      "summary": "Store new threads as inputs for memory generation.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "memory"
+    },
+    {
+      "key": "memories.use_memories",
+      "file": "config.toml",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Memory & context",
+      "summary": "Inject existing memories into new sessions.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "memory"
+    },
+    {
+      "key": "model",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Model",
+      "summary": "Model slug used for new turns, for example gpt-5.5.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "model.default"
+    },
+    {
+      "key": "model_auto_compact_token_limit",
+      "file": "config.toml",
+      "type": "number",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Memory & context",
+      "summary": "Token threshold that triggers automatic history compaction.",
+      "detail": "When unset, the model default applies.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "compaction"
+    },
+    {
+      "key": "model_auto_compact_token_limit_scope",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "total",
+        "body_after_prefix"
+      ],
+      "default": "total",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Memory & context",
+      "summary": "Whether the auto-compaction threshold counts the whole context or only growth after the prefix.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "compaction"
+    },
+    {
+      "key": "model_catalog_json",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Model",
+      "summary": "Path to a JSON model catalog loaded at startup.",
+      "detail": "A selected profile file can override the catalog per profile.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "model_context_window",
+      "file": "config.toml",
+      "type": "number",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Model",
+      "summary": "Context window tokens available to the active model.",
+      "detail": "Only needed when Codex does not know the window for a custom or self-hosted model.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "model_instructions_file",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Memory & context",
+      "summary": "Path to a file that replaces the built-in instructions.",
+      "detail": "Relative paths in a project config resolve against the .codex/ folder holding that config.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "instructions.file"
+    },
+    {
+      "key": "model_provider",
+      "file": "config.toml",
+      "type": "string",
+      "default": "openai",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Model",
+      "summary": "Provider id from model_providers to send requests to.",
+      "detail": "Project config cannot set this. Built-in ids are openai, ollama and lmstudio; anything else must have a matching [model_providers.<id>] table.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "model.provider"
+    },
+    {
+      "key": "model_providers.<id>",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Auth & providers",
+      "summary": "Definition of a custom model provider.",
+      "detail": "Project config cannot set this. The built-in ids openai, ollama and lmstudio are reserved. wire_api defaults to responses, the only supported protocol.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#custom-model-providers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "model.provider"
+    },
+    {
+      "key": "model_providers.<id>.auth",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Auth & providers",
+      "summary": "Command-backed bearer token configuration for the provider.",
+      "detail": "Do not combine with env_key, experimental_bearer_token or requires_openai_auth.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#custom-model-providers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "model.provider"
+    },
+    {
+      "key": "model_providers.<id>.auth.command",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Auth & providers",
+      "summary": "Command Codex runs to mint a bearer token. It must print the token to stdout.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#custom-model-providers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "model.provider"
+    },
+    {
+      "key": "model_providers.<id>.base_url",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Auth & providers",
+      "summary": "API base URL for the provider.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#custom-model-providers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "model.provider"
+    },
+    {
+      "key": "model_providers.<id>.env_key",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Auth & providers",
+      "summary": "Name of the environment variable holding the provider API key.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#custom-model-providers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "model.provider"
+    },
+    {
+      "key": "model_providers.<id>.experimental_bearer_token",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Auth & providers",
+      "summary": "Bearer token written directly into the config file.",
+      "detail": "This stores a credential in plain text. Prefer env_key or the auth command.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#custom-model-providers",
+      "flags": [
+        "experimental",
+        "sensitive"
+      ],
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "model.provider"
+    },
+    {
+      "key": "model_providers.<id>.name",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Auth & providers",
+      "summary": "Display name for the provider.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#custom-model-providers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "model.provider"
+    },
+    {
+      "key": "model_providers.<id>.oauth",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Auth & providers",
+      "summary": "OAuth settings for a custom model provider.",
+      "detail": "The configuration reference documents env_key and the auth command instead. Treat this table as undocumented and verify against your Codex version before relying on it.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#custom-model-providers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "model.provider"
+    },
+    {
+      "key": "model_reasoning_effort",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Model",
+      "summary": "Reasoning effort for models that support it.",
+      "detail": "Responses API only. xhigh is model dependent and is ignored by models that do not advertise it.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#model-reasoning-verbosity-and-limits",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "model.effort"
+    },
+    {
+      "key": "model_reasoning_summary",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "auto",
+        "concise",
+        "detailed",
+        "none"
+      ],
+      "default": "auto",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Model",
+      "summary": "Level of detail for reasoning summaries, or none to disable them.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#model-reasoning-verbosity-and-limits",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "model_supports_reasoning_summaries",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Model",
+      "summary": "Force Codex to send or skip reasoning metadata for the active model.",
+      "detail": "Set this only when a custom provider mishandles reasoning fields that Codex would otherwise send.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#model-reasoning-verbosity-and-limits",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "model_verbosity",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Model",
+      "summary": "Response verbosity override for the GPT-5 Responses API.",
+      "detail": "When unset the selected model or preset default applies.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#model-reasoning-verbosity-and-limits",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "notice",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user"
+      ],
+      "category": "Other",
+      "summary": "Acknowledgement state for one-time warnings and prompts.",
+      "detail": "Written by Codex when you dismiss a prompt. It lives in config.toml but is not a user setting. Entries cover access warnings, model migration prompts and rate limit nudges.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "flags": [
+        "state"
+      ],
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "notice.hide_full_access_warning",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user"
+      ],
+      "category": "Other",
+      "summary": "Records that the full access warning has been acknowledged.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "flags": [
+        "state"
+      ],
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "notify",
+      "file": "config.toml",
+      "type": "array",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Notifications",
+      "summary": "External command invoked for notifications, given a JSON payload.",
+      "detail": "Project config cannot set this. The array is the program and its leading arguments; Codex appends the JSON event.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#notifications",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "notifications"
+    },
+    {
+      "key": "openai_base_url",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Auth & providers",
+      "summary": "Base URL override for the built-in openai provider.",
+      "detail": "Project config cannot set this. Use it for an LLM proxy, router or data residency project instead of defining a new provider.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#api-organizations-using-data-residency",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "model.provider"
+    },
+    {
+      "key": "oss_provider",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "lmstudio",
+        "ollama"
+      ],
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Auth & providers",
+      "summary": "Local provider used when running with --oss.",
+      "detail": "When unset, Codex prompts for a provider.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#oss-mode-local-providers",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "model.provider"
+    },
+    {
+      "key": "otel",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Privacy",
+      "summary": "OpenTelemetry export settings.",
+      "detail": "Project config cannot set anything in this table. environment tags emitted events and defaults to dev.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#observability-and-telemetry",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "telemetry"
+    },
+    {
+      "key": "otel.exporter",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "none",
+        "otlp-http",
+        "otlp-grpc"
+      ],
+      "default": "none",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Privacy",
+      "summary": "Exporter used for OpenTelemetry logs.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#observability-and-telemetry",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "telemetry"
+    },
+    {
+      "key": "otel.exporter.<id>",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Privacy",
+      "summary": "Endpoint settings for the selected log exporter, keyed by exporter name.",
+      "detail": "Holds endpoint, headers, protocol and a tls table with ca-certificate, client-certificate and client-private-key paths.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#observability-and-telemetry",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "telemetry"
+    },
+    {
+      "key": "otel.log_user_prompt",
+      "file": "config.toml",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Privacy",
+      "summary": "Include raw user prompts in exported OpenTelemetry logs.",
+      "detail": "Off by default. Turning it on sends prompt text to your collector.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#observability-and-telemetry",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "telemetry"
+    },
+    {
+      "key": "otel.metrics_exporter",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "none",
+        "statsig",
+        "otlp-http",
+        "otlp-grpc"
+      ],
+      "default": "statsig",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Privacy",
+      "summary": "Exporter used for OpenTelemetry metrics.",
+      "detail": "Set none to stop metrics leaving the machine.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#observability-and-telemetry",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "telemetry"
+    },
+    {
+      "key": "otel.trace_exporter",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "none",
+        "otlp-http",
+        "otlp-grpc"
+      ],
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Privacy",
+      "summary": "Exporter used for OpenTelemetry traces.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#observability-and-telemetry",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "telemetry"
+    },
+    {
+      "key": "otel.trace_exporter.<id>",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Privacy",
+      "summary": "Endpoint settings for the selected trace exporter.",
+      "detail": "Same shape as otel.exporter.<id>: endpoint, headers, protocol and a tls table.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#observability-and-telemetry",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "telemetry"
+    },
+    {
+      "key": "permissions.<name>",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Permissions",
+      "summary": "A named, reusable permission profile.",
+      "detail": "Profiles are selected with default_permissions or per session. Unlike flat allow and deny lists, a profile bundles description, extends, filesystem, network and workspace root rules under one name.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#named-permission-profiles",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "permissions.rules"
+    },
+    {
+      "key": "permissions.<name>.extends",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Permissions",
+      "summary": "Parent profile applied before this one.",
+      "detail": "Accepts another profile name, :read-only or :workspace. :danger-full-access, unknown parents and cycles are rejected.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#named-permission-profiles",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "permissions.rules"
+    },
+    {
+      "key": "permissions.<name>.filesystem",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Permissions",
+      "summary": "Filesystem rules for the profile, keyed by absolute path, glob or special token.",
+      "detail": "Special tokens include :minimal and :workspace_roots.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#named-permission-profiles",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "sandbox.filesystem"
+    },
+    {
+      "key": "permissions.<name>.filesystem.<path>",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "read",
+        "write",
+        "deny"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Permissions",
+      "summary": "Access granted for one path or glob inside the profile.",
+      "detail": "A table value instead of a string scopes nested entries under that root.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#named-permission-profiles",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "sandbox.filesystem"
+    },
+    {
+      "key": "permissions.<name>.network",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Permissions",
+      "summary": "Network rules for commands run under the profile.",
+      "detail": "mode selects limited or full proxy behavior, and proxy_url, socks_url and the dangerously_ prefixed keys tune the listener.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#named-permission-profiles",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "permissions.<name>.network.domains.<pattern>",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "allow",
+        "deny"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Permissions",
+      "summary": "Allow or deny one host or wildcard pattern for sandboxed commands.",
+      "detail": "Supports exact hosts, *.example.com for subdomains, **.example.com for apex plus subdomains, and a global *. Deny wins on conflict. Does not restrict web search, apps or MCP servers.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#named-permission-profiles",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "permissions.<name>.network.enabled",
+      "file": "config.toml",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Permissions",
+      "summary": "Allow network access for commands in this profile.",
+      "detail": "This does not start the proxy. Without features.network_proxy or managed network requirements, command traffic is direct and the profile domain rules are not enforced.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#named-permission-profiles",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "permissions.<name>.workspace_roots",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Permissions",
+      "summary": "Extra workspace roots that receive the profile's :workspace_roots filesystem rules.",
+      "detail": "Each key is a path and each value is a boolean that opts that path into the root set.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#named-permission-profiles",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "sandbox.filesystem"
+    },
+    {
+      "key": "personality",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "none",
+        "friendly",
+        "pragmatic"
+      ],
+      "default": "none",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Model",
+      "summary": "Default communication style for models that advertise personality support.",
+      "detail": "Can be overridden per thread with /personality. Requires features.personality.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "persona"
+    },
+    {
+      "key": "plan_mode_reasoning_effort",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "none",
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Model",
+      "summary": "Reasoning effort used while Plan mode is active.",
+      "detail": "When unset, Plan mode uses its built-in preset instead of model_reasoning_effort.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "model.effort"
+    },
+    {
+      "key": "plugins.<plugin>",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Settings for one installed plugin, keyed as plugin-name@marketplace-name.",
+      "detail": "Besides enabled, it can carry mcp_servers.<server> entries that enable, filter or set approval modes for servers the plugin bundles.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "plugins"
+    },
+    {
+      "key": "plugins.<plugin>.enabled",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Enable or disable one installed plugin.",
+      "detail": "Read from the merged config, so a trusted project can override user, cloud-managed and system defaults. It does not override workspace-managed states.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "plugins"
+    },
+    {
+      "key": "project_doc_fallback_filenames",
+      "file": "config.toml",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Memory & context",
+      "summary": "Additional filenames to try when AGENTS.md is missing.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#project-instructions-discovery",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "instructions.file"
+    },
+    {
+      "key": "project_doc_max_bytes",
+      "file": "config.toml",
+      "type": "number",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Memory & context",
+      "summary": "Maximum bytes read from AGENTS.md when building project instructions.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#project-instructions-discovery",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "instructions.file"
+    },
+    {
+      "key": "project_root_markers",
+      "file": "config.toml",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Projects",
+      "summary": "Filenames that mark a project root when searching parent directories.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#project-root-detection",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "projects.<path>",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user"
+      ],
+      "category": "Projects",
+      "summary": "Per-project record keyed by absolute path or worktree path.",
+      "detail": "Codex appends one table here for every directory you approve, so this section grows large on an active machine.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#project-config-files-codexconfigtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "trust.projects"
+    },
+    {
+      "key": "projects.<path>.trust_level",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "trusted",
+        "untrusted"
+      ],
+      "scopes": [
+        "user"
+      ],
+      "category": "Projects",
+      "summary": "Whether a project or worktree is trusted.",
+      "detail": "Written automatically when you answer the trust prompt. Untrusted projects skip all project-scoped .codex/ layers, including config, hooks and rules.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#project-config-files-codexconfigtoml",
+      "flags": [
+        "volatile"
+      ],
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "trust.projects"
+    },
+    {
+      "key": "review_model",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Model",
+      "summary": "Model used by the /review command.",
+      "detail": "Defaults to the current session model.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "sandbox_mode",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "read-only",
+        "workspace-write",
+        "danger-full-access"
+      ],
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Sandbox",
+      "summary": "Sandbox policy for filesystem and network access during command execution.",
+      "detail": "Project config cannot set this. It is the older surface; default_permissions with named profiles is the newer one, and the two should not be combined.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#approval-policies-and-sandbox-modes",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "sandbox.mode"
+    },
+    {
+      "key": "sandbox_workspace_write",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Sandbox",
+      "summary": "Settings that apply when sandbox_mode is workspace-write.",
+      "detail": "Project config cannot set any key in this table.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#approval-policies-and-sandbox-modes",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "sandbox.filesystem"
+    },
+    {
+      "key": "sandbox_workspace_write.exclude_slash_tmp",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Sandbox",
+      "summary": "Remove /tmp from the writable roots.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#approval-policies-and-sandbox-modes",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "sandbox.filesystem"
+    },
+    {
+      "key": "sandbox_workspace_write.exclude_tmpdir_env_var",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Sandbox",
+      "summary": "Remove the directory named by $TMPDIR from the writable roots.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#approval-policies-and-sandbox-modes",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "sandbox.filesystem"
+    },
+    {
+      "key": "sandbox_workspace_write.network_access",
+      "file": "config.toml",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Sandbox",
+      "summary": "Allow outbound network access inside the workspace-write sandbox.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#approval-policies-and-sandbox-modes",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "sandbox.network"
+    },
+    {
+      "key": "sandbox_workspace_write.writable_roots",
+      "file": "config.toml",
+      "type": "array",
+      "scopes": [
+        "user",
+        "profile"
+      ],
+      "category": "Sandbox",
+      "summary": "Additional directories the sandbox may write to.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#approval-policies-and-sandbox-modes",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "sandbox.filesystem"
+    },
+    {
+      "key": "service_tier",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Model",
+      "summary": "Preferred service tier for new turns.",
+      "detail": "Use fast, which maps to the request value priority, or another tier advertised by the active model.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "shell_environment_policy",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Which environment variables are passed to processes Codex spawns.",
+      "detail": "set injects explicit values after exclusions run, so never put secrets there. experimental_use_profile sources the user shell profile.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#shell-environment-policy",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "shell_environment_policy.filters",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Case-insensitive variable name patterns mapped to include or exclude.",
+      "detail": "Include entries create an allowlist and cannot restore excluded values. Do not combine with the legacy include_only and exclude arrays in the same layer.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#shell-environment-policy",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "shell_environment_policy.ignore_default_excludes",
+      "file": "config.toml",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Keep variables whose names contain KEY, SECRET or TOKEN.",
+      "detail": "Defaults to true, meaning secret-looking variables are passed through. Set false to apply the automatic exclusions.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#shell-environment-policy",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "shell_environment_policy.inherit",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "all",
+        "core",
+        "none"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Baseline environment inherited by spawned processes.",
+      "detail": "core keeps a minimal set such as HOME, PATH and USER.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#shell-environment-policy",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "show_raw_agent_reasoning",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Interface",
+      "summary": "Show raw reasoning content when the active model emits it.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#hide-or-surface-reasoning-events",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "skills.config",
+      "file": "config.toml",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Per-skill enablement overrides.",
+      "detail": "Each entry is a table with path, pointing at a folder containing SKILL.md, and enabled.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "skills.dir"
+    },
+    {
+      "key": "skills.max_context_tokens",
+      "file": "config.toml",
+      "type": "number",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Skills & plugins",
+      "summary": "Token budget for the available-skills catalog.",
+      "detail": "Defaults to 2 percent of the model context window. Explicit values are capped at 10000 tokens.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "skills.budget"
+    },
+    {
+      "key": "sqlite_home",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Other",
+      "summary": "Directory holding the SQLite state database used by agent jobs and resumable runs.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "suppress_unstable_features_warning",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Other",
+      "summary": "Hide the warning shown when under-development feature flags are enabled.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-basic#feature-flags",
+      "flags": [
+        "experimental"
+      ],
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "tool_output_token_limit",
+      "file": "config.toml",
+      "type": "number",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Memory & context",
+      "summary": "Token budget for storing an individual tool or function output in history.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "tool_suggest.disabled_tools",
+      "file": "config.toml",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Connectors or plugins that must never be suggested.",
+      "detail": "Same entry shape as tool_suggest.discoverables.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "tool_suggest.discoverables",
+      "file": "config.toml",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Connectors or plugins that may be suggested as tools.",
+      "detail": "Each entry sets type, either connector or plugin, and an id.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "tools",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Built-in tool configuration.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "tools.view_image",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Enable the view_image tool for attaching local images.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "tools.web_search",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Enable and configure the web search tool.",
+      "detail": "Accepts a table with context_size, allowed_domains and an approximate location. These domain filters are separate from sandbox network rules and do not restrict connectors or MCP servers.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "web_search"
+    },
+    {
+      "key": "tui",
+      "file": "config.toml",
+      "type": "object",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Interface",
+      "summary": "Terminal UI options.",
+      "detail": "Also holds show_tooltips, raw_output_mode, resume_cwd, terminal_title and notification_method beyond the keys listed here.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#tui-options",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "tui.alternate_screen",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "auto",
+        "always",
+        "never"
+      ],
+      "default": "auto",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Interface",
+      "summary": "Whether the TUI uses the terminal alternate screen.",
+      "detail": "auto skips the alternate screen in Zellij so scrollback is preserved.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#tui-options",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "tui.animations",
+      "file": "config.toml",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Interface",
+      "summary": "Enable terminal animations such as the welcome screen, shimmer and spinner.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#tui-options",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "theme"
+    },
+    {
+      "key": "tui.keymap.<context>.<action>",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Interface",
+      "summary": "Key binding for one TUI action in one context.",
+      "detail": "Contexts include global, chat, composer, editor, vim_normal, vim_operator, vim_text_object, pager, list and approval. An array binds several keys, and an empty array unbinds the action.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#tui-options",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "tui.model_availability_nux.<model>",
+      "file": "config.toml",
+      "type": "number",
+      "scopes": [
+        "user"
+      ],
+      "category": "Interface",
+      "summary": "Internal startup tooltip counter keyed by model slug.",
+      "detail": "Written by Codex. It lives in config.toml but is not a user setting.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#tui-options",
+      "flags": [
+        "state"
+      ],
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "tui.notifications",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Notifications",
+      "summary": "Enable terminal notifications, optionally as an array restricting them to specific event types.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#notifications",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "notifications"
+    },
+    {
+      "key": "tui.status_line",
+      "file": "config.toml",
+      "type": "array",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Interface",
+      "summary": "Ordered list of footer status line item ids, or null to hide the status line.",
+      "detail": "terminal_title takes the same kind of list for the window or tab title and defaults to [\"spinner\", \"project\"].",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#tui-options",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "tui.theme",
+      "file": "config.toml",
+      "type": "string",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Interface",
+      "summary": "Syntax highlighting theme, given as a kebab-case theme name.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#tui-options",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "theme"
+    },
+    {
+      "key": "tui.vim_mode_default",
+      "file": "config.toml",
+      "type": "boolean",
+      "default": false,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Interface",
+      "summary": "Start the composer in Vim normal mode.",
+      "detail": "Can still be toggled per session with /vim.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#tui-options",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "editor.vim"
+    },
+    {
+      "key": "web_search",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "disabled",
+        "cached",
+        "indexed",
+        "live"
+      ],
+      "default": "cached",
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Tools",
+      "summary": "Web search mode.",
+      "detail": "cached uses an OpenAI-maintained index with no external access, indexed allows external access only through the index, and live allows unrestricted retrieval. Full access sandbox modes default to live.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "web_search"
+    },
+    {
+      "key": "windows.sandbox",
+      "file": "config.toml",
+      "type": "enum",
+      "enumValues": [
+        "unelevated",
+        "elevated"
+      ],
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Sandbox",
+      "summary": "Native Windows sandbox mode.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null,
+      "concept": "sandbox.mode"
+    },
+    {
+      "key": "windows.sandbox_private_desktop",
+      "file": "config.toml",
+      "type": "boolean",
+      "default": true,
+      "scopes": [
+        "user",
+        "project",
+        "profile"
+      ],
+      "category": "Sandbox",
+      "summary": "Run the sandboxed child process on a private Windows desktop.",
+      "detail": "Set false only for compatibility with the older Winsta0\\Default behavior.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "addedIn": null,
+      "removedIn": null
+    },
+    {
+      "key": "windows_wsl_setup_acknowledged",
+      "file": "config.toml",
+      "type": "boolean",
+      "scopes": [
+        "user"
+      ],
+      "category": "Other",
+      "summary": "Records that the Windows WSL onboarding prompt was acknowledged.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-reference#configtoml",
+      "flags": [
+        "state"
+      ],
+      "addedIn": null,
+      "removedIn": null
+    }
+  ],
+  "paths": [
+    {
+      "path": "~/config.toml",
+      "kind": "settings",
+      "scope": "user",
+      "editable": true,
+      "summary": "Primary user configuration in TOML. Every key in this pack lives here unless noted otherwise.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#config-and-state-locations"
+    },
+    {
+      "path": "~/<profile>.config.toml",
+      "kind": "settings",
+      "scope": "user",
+      "editable": true,
+      "summary": "Profile override loaded with --profile <profile>. Uses top-level keys, not a nested table.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#profiles"
+    },
+    {
+      "path": "~/hooks.json",
+      "kind": "hooks",
+      "scope": "user",
+      "editable": true,
+      "summary": "Lifecycle hooks in JSON, an alternative to an inline [hooks] table in config.toml.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#hooks"
+    },
+    {
+      "path": "~/AGENTS.md",
+      "kind": "instructions",
+      "scope": "user",
+      "editable": true,
+      "summary": "Global agent instructions applied in every project.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#project-instructions-discovery"
+    },
+    {
+      "path": "~/rules/",
+      "kind": "rules",
+      "scope": "user",
+      "editable": true,
+      "summary": "User rule files that constrain which commands Codex may run."
+    },
+    {
+      "path": "~/skills/",
+      "kind": "skills",
+      "scope": "user",
+      "editable": true,
+      "summary": "Personal skills, one directory per skill with a SKILL.md entrypoint."
+    },
+    {
+      "path": "~/skills/.system/",
+      "kind": "vendor",
+      "scope": "user",
+      "editable": false,
+      "summary": "Skills bundled with Codex. Managed by the installer, not meant to be edited."
+    },
+    {
+      "path": "~/plugins/",
+      "kind": "plugins",
+      "scope": "user",
+      "editable": true,
+      "summary": "Installed plugins from configured marketplaces."
+    },
+    {
+      "path": "~/plugins/cache/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Download cache for plugin marketplaces."
+    },
+    {
+      "path": "~/memories/",
+      "kind": "memory",
+      "scope": "user",
+      "editable": false,
+      "summary": "Memories written by Codex when the Memories feature is on."
+    },
+    {
+      "path": "~/vendor_imports/skills/",
+      "kind": "vendor",
+      "scope": "user",
+      "editable": false,
+      "summary": "Skills imported from other vendors. Refreshed by Codex, not hand edited."
+    },
+    {
+      "path": "~/auth.json",
+      "kind": "credential",
+      "scope": "user",
+      "editable": false,
+      "summary": "Cached login credentials when cli_auth_credentials_store is file or auto. Never read or copy this file.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#config-and-state-locations"
+    },
+    {
+      "path": "~/sessions/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Recorded session rollouts."
+    },
+    {
+      "path": "~/log/",
+      "kind": "logs",
+      "scope": "user",
+      "editable": false,
+      "summary": "Codex log files, including codex-tui.log when log_dir is set."
+    },
+    {
+      "path": "~/sqlite/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "SQLite state database directory used by agent jobs."
+    },
+    {
+      "path": "~/shell_snapshots/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Captured shell environments used to speed up repeated commands."
+    },
+    {
+      "path": "~/cache/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "General on-disk cache."
+    },
+    {
+      "path": "~/tmp/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Scratch directory for in-flight work."
+    },
+    {
+      "path": "~/.tmp/",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Hidden scratch directory for in-flight work."
+    },
+    {
+      "path": "~/history.jsonl",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Session transcript log written when history.persistence is save-all.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#history-persistence"
+    },
+    {
+      "path": "~/session_index.jsonl",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Index of recorded sessions used for resume."
+    },
+    {
+      "path": "~/models_cache.json",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Cached model catalog fetched at startup."
+    },
+    {
+      "path": "~/*.sqlite*",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "SQLite databases and their journals, such as logs_2.sqlite and state_5.sqlite."
+    },
+    {
+      "path": "~/installation_id",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Generated identifier for this installation."
+    },
+    {
+      "path": "~/version.json",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Records the installed Codex version."
+    },
+    {
+      "path": "~/.codex-global-state.json",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Global runtime state written by Codex."
+    },
+    {
+      "path": "~/.personality_migration",
+      "kind": "state",
+      "scope": "user",
+      "editable": false,
+      "summary": "Marker for the one-time personality migration."
+    },
+    {
+      "path": "<project>/.codex/config.toml",
+      "kind": "settings",
+      "scope": "project",
+      "editable": true,
+      "summary": "Project-scoped config, loaded only in trusted projects and only for keys the project layer may set.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#project-config-files-codexconfigtoml"
+    },
+    {
+      "path": "<project>/.codex/hooks.json",
+      "kind": "hooks",
+      "scope": "project",
+      "editable": true,
+      "summary": "Project-scoped lifecycle hooks, loaded only in trusted projects.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#hooks"
+    },
+    {
+      "path": "<project>/.codex/rules/",
+      "kind": "rules",
+      "scope": "project",
+      "editable": true,
+      "summary": "Project-scoped rule files, loaded only in trusted projects."
+    },
+    {
+      "path": "<project>/AGENTS.md",
+      "kind": "instructions",
+      "scope": "project",
+      "editable": true,
+      "summary": "Project instructions read from the repository root.",
+      "docsUrl": "https://learn.chatgpt.com/docs/config-file/config-advanced#project-instructions-discovery"
+    }
+  ]
+}

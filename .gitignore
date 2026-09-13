@@ -1,0 +1,12 @@
+# build output
+bin/
+# app/web/dist is committed on purpose so `go install ...@latest` embeds the UI.
+
+# deps
+node_modules/
+
+# local
+.DS_Store
+*.log
+.env
+.env.*

@@ -1,0 +1,55 @@
+# GoReleaser config. Build the frontend first (make web) so app/web/dist is
+# populated before the Go build embeds it.
+version: 2
+
+project_name: agentconf
+
+before:
+  hooks:
+    - go mod tidy
+    - sh -c "cd app/web && npm ci --no-fund --no-audit && npm run build"
+
+builds:
+  - id: agentconf
+    main: ./app/cmd/agentconf
+    binary: agentconf
+    env:
+      - CGO_ENABLED=0
+    goos: [darwin, linux, windows]
+    goarch: [amd64, arm64]
+    ldflags:
+      - -s -w -X main.version={{.Version}}
+    flags:
+      - -trimpath
+
+archives:
+  - id: default
+    formats: [tar.gz]
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    files:
+      - LICENSE
+      - README.md
+
+checksum:
+  name_template: checksums.txt
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^chore:"
+
+brews:
+  - name: agentconf
+    repository:
+      owner: AviroopPaul
+      name: homebrew-tap
+    homepage: https://github.com/AviroopPaul/agentconf
+    description: "Read-only UI over your coding agents' config directories"
+    license: MIT
+    test: |
+      system "#{bin}/agentconf", "version"
