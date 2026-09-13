@@ -43,7 +43,7 @@ changelog:
       - "^docs:"
       - "^chore:"
 
-brews:
+homebrew_casks:
   - name: agentconf
     repository:
       owner: AviroopPaul
@@ -51,5 +51,10 @@ brews:
     homepage: https://github.com/AviroopPaul/agentconf
     description: "Read-only UI over your coding agents' config directories"
     license: MIT
-    test: |
-      system "#{bin}/agentconf", "version"
+    binary: agentconf
+    hooks:
+      post:
+        install: |
+          if system_command("/usr/bin/xattr", args: ["-h"]).exit_status == 0
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/agentconf"]
+          end
