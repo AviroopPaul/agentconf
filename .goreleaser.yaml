@@ -12,7 +12,6 @@ before:
 builds:
   - id: agentconf
     main: ./app/cmd/agentconf
-    binary: agentconf
     env:
       - CGO_ENABLED=0
     goos: [darwin, linux, windows]
@@ -51,7 +50,6 @@ homebrew_casks:
     homepage: https://github.com/AviroopPaul/agentconf
     description: "Read-only UI over your coding agents' config directories"
     license: MIT
-    binary: agentconf
     hooks:
       post:
         install: |
